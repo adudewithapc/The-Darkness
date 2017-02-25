@@ -34,7 +34,7 @@ public class ReliquaryWorldData extends WorldSavedData
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
-		compound.setBoolean("isreliquarycrafted", isReliquaryCrafted);
+		compound.setBoolean("isReliquaryCrafted", isReliquaryCrafted);
 		return compound;
 	}
 	
@@ -49,15 +49,13 @@ public class ReliquaryWorldData extends WorldSavedData
 	
 	public void setReliquaryCrafted(boolean isReliquaryCrafted)
 	{
-		System.out.println("set reliquary crafted = " + isReliquaryCrafted);
 		this.isReliquaryCrafted = isReliquaryCrafted;
-		TheDarkness.NETWORK.sendToAll(new ReliquaryMessage(this.isReliquaryCrafted));
+		TheDarkness.NETWORK.sendToServer(new ReliquaryMessage(this.isReliquaryCrafted));
 		this.markDirty();
 	}
 	
 	public boolean isReliquaryCrafted()
 	{
-		System.out.println("is reliquary crafted = " + isReliquaryCrafted);
 		return isReliquaryCrafted;
 	}
 	

@@ -43,7 +43,7 @@ public class TheDarkness
 		proxy.preInit();
 		
 		int id = -1;
-		NETWORK.registerMessage(ReliquaryMessageHandler.class, ReliquaryMessage.class, id++, Side.SERVER);
+		NETWORK.registerMessage(ReliquaryMessageHandler.class, ReliquaryMessage.class, id++, Side.CLIENT);
 	}
 	
 	@EventHandler
