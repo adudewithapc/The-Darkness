@@ -1,0 +1,24 @@
+[13:24:56] [main/INFO]: Logging in with username & password
+[13:25:01] [Client thread/INFO]: Setting user: That_Martin_Guy
+[13:25:05] [Client thread/WARN]: Skipping bad option: lastServer:
+[13:25:05] [Client thread/INFO]: LWJGL Version: 2.9.4
+[13:25:09] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:The Darkness
+[13:25:13] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[13:25:13] [Thread-8/INFO]: Initializing LWJGL OpenAL
+[13:25:13] [Thread-8/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[13:25:13] [Thread-8/INFO]: OpenAL initialized.
+[13:25:13] [Sound Library Loader/INFO]: Sound engine started
+[13:25:17] [Client thread/INFO]: Created: 16x16 textures-atlas
+[13:25:18] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:The Darkness
+[13:25:21] [Client thread/INFO]: SoundSystem shutting down...
+[13:25:21] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+[13:25:21] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[13:25:21] [Thread-10/INFO]: Initializing LWJGL OpenAL
+[13:25:21] [Thread-10/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[13:25:21] [Thread-10/INFO]: OpenAL initialized.
+[13:25:22] [Sound Library Loader/INFO]: Sound engine started
+[13:25:25] [Client thread/INFO]: Created: 512x512 textures-atlas
+[13:25:26] [Client thread/WARN]: Skipping bad option: lastServer:
+[13:25:30] [Client thread/INFO]: Stopping!
+[13:25:30] [Client thread/INFO]: SoundSystem shutting down...
+[13:25:30] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
