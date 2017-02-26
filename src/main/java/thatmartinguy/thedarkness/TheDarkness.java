@@ -2,22 +2,26 @@ package thatmartinguy.thedarkness;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import thatmartinguy.thedarkness.block.ModBlocks;
+import thatmartinguy.thedarkness.command.CommandResetReliquaryCraftedState;
 import thatmartinguy.thedarkness.crafting.ModCrafting;
 import thatmartinguy.thedarkness.crafting.ModShapedRecipe;
+import thatmartinguy.thedarkness.data.ReliquaryWorldData;
 import thatmartinguy.thedarkness.event.CommonEventHandler;
 import thatmartinguy.thedarkness.item.ModItems;
 import thatmartinguy.thedarkness.network.ReliquaryMessage;
-import thatmartinguy.thedarkness.network.ReliquaryMessageHandler;
 import thatmartinguy.thedarkness.potion.ModPotionEffects;
 import thatmartinguy.thedarkness.proxy.IProxy;
 import thatmartinguy.thedarkness.reference.Reference;
@@ -43,7 +47,7 @@ public class TheDarkness
 		proxy.preInit();
 		
 		int id = -1;
-		NETWORK.registerMessage(ReliquaryMessageHandler.class, ReliquaryMessage.class, id++, Side.CLIENT);
+		NETWORK.registerMessage(ReliquaryMessage.Handler.class, ReliquaryMessage.class, id++, Side.CLIENT);
 	}
 	
 	@EventHandler
@@ -61,5 +65,17 @@ public class TheDarkness
 	public static void postInit(FMLPostInitializationEvent event)
 	{
 		proxy.postInit();
+	}
+	
+	@EventHandler
+	public static void serverStartingEvent(FMLServerStartingEvent event)
+	{
+		event.registerServerCommand(new CommandResetReliquaryCraftedState());
+	}
+	
+	@EventHandler
+	public static void serverStoppedEvent(FMLServerStoppedEvent event)
+	{
+		ReliquaryWorldData.clearInstance();
 	}
 }

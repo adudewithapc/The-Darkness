@@ -1,9 +1,11 @@
 # Items
-item.itemReliquary.name=Reliquary
-item.itemDarklingSkin.name=Darkling Skin
+item.thedarkness:itemReliquary.name=Reliquary
+item.thedarkness:itemDarklingSkin.name=Darkling Skin
+item.thedarkness:swordBrightstone.name=Brightstone Sword
+item.thedarkness:swordVoidstone.name=Voidstone Sword
 
 # Blocks
-tile.blockVoidstone.name=Voidstone
+tile.thedarkness:blockBrightstone.name=Brightstone
 
 # Creative Tab
 itemGroup.tabDarkness=The Darkness

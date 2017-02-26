@@ -1,14 +1,11 @@
 package thatmartinguy.thedarkness.crafting;
 
-import java.util.Iterator;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import thatmartinguy.thedarkness.block.ModBlocks;
 import thatmartinguy.thedarkness.item.ModItems;
 
 public class ModCrafting
@@ -18,26 +15,9 @@ public class ModCrafting
 	
 	public static void init()
 	{
-		//GameRegistry.addRecipe(new ItemStack(ModItems.itemReliquary), "SGS", "SNS", "SSS", 'G', Item.getItemFromBlock(Blocks.GLASS), 'N', Items.NETHER_STAR, 'S', ModItems.itemDarklingSkin);
+		//Brightstone
+		GameRegistry.addRecipe(new ItemStack(Item.getItemFromBlock(ModBlocks.blockBrighstone)), "GGG", "GSG", "GGG", 'G', Blocks.GLOWSTONE, 'S', Items.NETHER_STAR);
+		//Brightstone sword
+		GameRegistry.addRecipe(new ItemStack(ModItems.swordBrightstone), "B", "B", "S", 'B', ModBlocks.blockBrighstone, 'S', Items.STICK);
 	}
-	
-	/**public static void setReliquaryCrafable(boolean isCrafted)
-	{
-		isReliquaryCrafted = isCrafted;
-		
-		//Make reliquary uncraftable if it has been crafted
-		if(!isReliquaryCrafted)
-		{
-			Iterator recipes = CraftingManager.getInstance().getRecipeList().iterator();
-			while(recipes.hasNext())
-			{
-				ItemStack output = ((IRecipe) recipes.next()).getRecipeOutput();
-				if(output != null && output.getItem() != null)
-				{
-					if(ItemStack.areItemsEqual(output, new ItemStack(ModItems.itemReliquary)))
-						recipes.remove();
-				}
-			}
-		}
-	}**/
 }
