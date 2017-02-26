@@ -2,7 +2,7 @@ package thatmartinguy.thedarkness.item;
 
 import net.minecraft.item.Item;
 import thatmartinguy.thedarkness.TheDarkness;
-import thatmartinguy.thedarkness.reference.Reference;
+import thatmartinguy.thedarkness.util.Reference;
 
 public class ItemBase extends Item
 {

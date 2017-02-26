@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import thatmartinguy.thedarkness.TheDarkness;
-import thatmartinguy.thedarkness.reference.Reference;
+import thatmartinguy.thedarkness.util.Reference;
 
 public class ItemVoidstoneSword extends ItemSword
 {

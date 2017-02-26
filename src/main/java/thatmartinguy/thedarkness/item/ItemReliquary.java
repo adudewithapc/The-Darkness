@@ -25,7 +25,7 @@ import thatmartinguy.thedarkness.TheDarkness;
 import thatmartinguy.thedarkness.client.sound.ModSoundEvent;
 import thatmartinguy.thedarkness.data.ReliquaryWorldData;
 import thatmartinguy.thedarkness.potion.ModPotionEffects;
-import thatmartinguy.thedarkness.reference.Reference;
+import thatmartinguy.thedarkness.util.Reference;
 
 public class ItemReliquary extends ItemFood
 {
@@ -58,7 +58,7 @@ public class ItemReliquary extends ItemFood
 	{
 		if(worldIn.isRemote)
 		{
-			player.addChatMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "I consume you..."));
+			player.addChatMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "" + ChatFormatting.ITALIC + "I consume you..."));
 			worldIn.playSound(player.posX, player.posY, player.posZ, SoundEvents.BLOCK_PORTAL_TRIGGER, SoundCategory.MASTER, 1, 1, false);
 		}
 		if(!worldIn.isRemote)

@@ -1,4 +1,4 @@
-package thatmartinguy.thedarkness.reference;
+package thatmartinguy.thedarkness.util;
 
 public class Reference
 {

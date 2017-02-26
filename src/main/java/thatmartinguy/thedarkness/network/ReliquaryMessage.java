@@ -14,10 +14,7 @@ public class ReliquaryMessage implements IMessage
 {
 	private boolean reliquaryCrafted;
 	
-	public ReliquaryMessage()
-	{
-		
-	}
+	public ReliquaryMessage() {}
 	
 	public ReliquaryMessage(boolean reliquaryCrafted)
 	{

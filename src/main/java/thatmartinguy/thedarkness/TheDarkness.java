@@ -2,7 +2,6 @@ package thatmartinguy.thedarkness;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -19,12 +18,14 @@ import thatmartinguy.thedarkness.command.CommandResetReliquaryCraftedState;
 import thatmartinguy.thedarkness.crafting.ModCrafting;
 import thatmartinguy.thedarkness.crafting.ModShapedRecipe;
 import thatmartinguy.thedarkness.data.ReliquaryWorldData;
+import thatmartinguy.thedarkness.event.CapabilityEventHandler;
 import thatmartinguy.thedarkness.event.CommonEventHandler;
 import thatmartinguy.thedarkness.item.ModItems;
+import thatmartinguy.thedarkness.network.PlayerHostMessage;
 import thatmartinguy.thedarkness.network.ReliquaryMessage;
 import thatmartinguy.thedarkness.potion.ModPotionEffects;
 import thatmartinguy.thedarkness.proxy.IProxy;
-import thatmartinguy.thedarkness.reference.Reference;
+import thatmartinguy.thedarkness.util.Reference;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION)
 
@@ -48,6 +49,7 @@ public class TheDarkness
 		
 		int id = -1;
 		NETWORK.registerMessage(ReliquaryMessage.Handler.class, ReliquaryMessage.class, id++, Side.CLIENT);
+		NETWORK.registerMessage(PlayerHostMessage.Handler.class, PlayerHostMessage.class, id++, Side.CLIENT);
 	}
 	
 	@EventHandler
@@ -56,8 +58,9 @@ public class TheDarkness
 		ModCrafting.init();
 		ModShapedRecipe.init();
 		
-		CommonEventHandler commonEventHandler = new CommonEventHandler();
-		MinecraftForge.EVENT_BUS.register(commonEventHandler);
+		MinecraftForge.EVENT_BUS.register(new CommonEventHandler());
+		MinecraftForge.EVENT_BUS.register(new CapabilityEventHandler());
+		
 		proxy.init();
 	}
 	

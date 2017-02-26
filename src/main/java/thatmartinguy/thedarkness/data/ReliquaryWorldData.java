@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensio
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import thatmartinguy.thedarkness.TheDarkness;
 import thatmartinguy.thedarkness.network.ReliquaryMessage;
-import thatmartinguy.thedarkness.reference.Reference;
+import thatmartinguy.thedarkness.util.Reference;
 
 public class ReliquaryWorldData extends WorldSavedData
 {

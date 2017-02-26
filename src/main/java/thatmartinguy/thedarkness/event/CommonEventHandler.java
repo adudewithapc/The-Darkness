@@ -7,9 +7,7 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
@@ -17,21 +15,13 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
+import thatmartinguy.thedarkness.data.capability.IPlayerHostCapability;
+import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
 import thatmartinguy.thedarkness.item.ModItems;
 import thatmartinguy.thedarkness.potion.ModPotionEffects;
 
 public class CommonEventHandler
 {
-	@SuppressWarnings("unused")
-	@SubscribeEvent
-	public void reliquaryCraftedEvent(ItemCraftedEvent event)
-	{
-		if(event.crafting.isItemEqual(new ItemStack(ModItems.itemReliquary)))
-		{
-			
-		}
-	}
 	
 	//Hit the player with lightning if he killed a darkling
 	@SubscribeEvent
@@ -55,7 +45,7 @@ public class CommonEventHandler
 					if(!player.worldObj.isRemote)
 					{
 						player.worldObj.spawnEntityInWorld(new EntityLightningBolt(player.worldObj, player.posX, player.posY, player.posZ, false));
-						player.addChatMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "You are one with me!"));
+						player.addChatMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "I consume you..."));
 					}
 					else
 					{
@@ -66,6 +56,7 @@ public class CommonEventHandler
 		}
 	}
 	
+	//Make the player a host if hit by lightning
 	@SubscribeEvent
 	public void playerStruckByLightningEvent(EntityStruckByLightningEvent event)
 	{
@@ -82,9 +73,15 @@ public class CommonEventHandler
 					player.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(ModItems.swordVoidstone));
 					//Set time to night
 					player.worldObj.setWorldTime(13048);
+					
+					IPlayerHostCapability host = player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null);
+					host.setHost(true);
+					System.out.println("Player is host = " + host.isHost());
+					
 					if(!player.worldObj.isRemote)
 					{
 						event.getEntity().playSound(SoundEvents.BLOCK_PORTAL_TRIGGER, 1, 1);
+						player.addChatMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "You are one with me!"));
 					}
 				}
 			}
@@ -95,12 +92,19 @@ public class CommonEventHandler
 					player.setHeldItem(EnumHand.OFF_HAND, new ItemStack(ModItems.swordVoidstone));
 					//Set time to night
 					player.worldObj.setWorldTime(13048);
+					
+					IPlayerHostCapability host = player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null);
+					host.setHost(true);
+					System.out.println("Player is host = " + host.isHost());
+					
 					if(!player.worldObj.isRemote)
 					{
 						event.getEntity().playSound(SoundEvents.BLOCK_PORTAL_TRIGGER, 1, 1);
+						player.addChatMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "You are one with me!"));
 					}
 				}
 			}
 		}
 	}
+
 }

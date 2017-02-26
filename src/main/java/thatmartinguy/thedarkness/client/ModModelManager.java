@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import thatmartinguy.thedarkness.block.ModBlocks;
 import thatmartinguy.thedarkness.item.ModItems;
-import thatmartinguy.thedarkness.reference.Reference;
+import thatmartinguy.thedarkness.util.Reference;
 
 public class ModModelManager
 {
