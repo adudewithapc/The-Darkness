@@ -1,6 +1,5 @@
 package thatmartinguy.thedarkness.potion;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
@@ -14,7 +13,7 @@ public class EffectReliquary extends Potion
 		this(true, 0);
 		this.setPotionName(potionName);
 		this.setRegistryName(registryName);
-		this.REGISTRY.register(REGISTRY.getKeys().size() + 1, new ResourceLocation(Reference.MOD_ID, "effectReliquary"), this);
+		Potion.REGISTRY.register(REGISTRY.getKeys().size() + 1, new ResourceLocation(Reference.MOD_ID, "effectReliquary"), this);
 	}
 	protected EffectReliquary(boolean isBadEffectIn, int liquidColorIn)
 	{
@@ -41,6 +40,6 @@ public class EffectReliquary extends Potion
 	
 	public int getPotionID()
 	{
-		return this.getIdFromPotion(this);
+		return Potion.getIdFromPotion(this);
 	}
 }

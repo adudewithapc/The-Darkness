@@ -18,7 +18,6 @@ public class CapabilityEventHandler
 		if(event.getEntity() instanceof EntityPlayer)
 		{
 			event.addCapability(IS_HOST, new PlayerHostProvider());
-			System.out.println("Attached PlayerHostCapability");
 		}
 	}
 }

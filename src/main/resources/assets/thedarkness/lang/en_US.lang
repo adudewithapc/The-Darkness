@@ -7,5 +7,8 @@ item.thedarkness:swordVoidstone.name=Voidstone Sword
 # Blocks
 tile.thedarkness:blockBrightstone.name=Brightstone
 
+# Entities
+entity.thedarkness.thedarkness:livingShadow.name=Living Shadow
+
 # Creative Tab
 itemGroup.tabDarkness=The Darkness

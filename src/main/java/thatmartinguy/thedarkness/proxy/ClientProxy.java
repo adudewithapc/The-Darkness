@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import thatmartinguy.thedarkness.client.ModModelManager;
+import thatmartinguy.thedarkness.entity.ModEntities;
 
 public class ClientProxy extends CommonProxy
 {
@@ -14,7 +15,6 @@ public class ClientProxy extends CommonProxy
 	public void preInit()
 	{
 		ModModelManager.registerAllModels();
-		System.out.println("Pre init in ClientProxy");
 	}
 	
 	@Override

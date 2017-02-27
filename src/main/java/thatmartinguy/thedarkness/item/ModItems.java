@@ -1,9 +1,7 @@
 package thatmartinguy.thedarkness.item;
 
-import net.minecraft.block.BlockDoor.EnumHingePosition;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemSword;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.common.util.EnumHelper;

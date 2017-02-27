@@ -2,17 +2,16 @@ package thatmartinguy.thedarkness.client;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.ItemModelMesher;
-import net.minecraft.client.renderer.block.model.ModelManager;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import thatmartinguy.thedarkness.block.ModBlocks;
+import thatmartinguy.thedarkness.entity.monster.EntityLivingShadow;
+import thatmartinguy.thedarkness.entity.monster.RenderLivingShadow;
 import thatmartinguy.thedarkness.item.ModItems;
-import thatmartinguy.thedarkness.util.Reference;
 
 public class ModModelManager
 {
@@ -20,6 +19,7 @@ public class ModModelManager
 	{
 		registerItemModels();
 		registerBlockModels();
+		registerMobModels();
 	}
 
 	private static void registerItemModels()
@@ -43,5 +43,15 @@ public class ModModelManager
 	private static void registerBlockModel(Block block)
 	{
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
+	}
+	
+	private static void registerMobModels()
+	{
+		registerMobModel(EntityLivingShadow.class, RenderLivingShadow::new);
+	}
+	
+	private static <T extends Entity> void registerMobModel(Class<T> entity, IRenderFactory<? super T> renderFactory)
+	{
+		RenderingRegistry.registerEntityRenderingHandler(entity, renderFactory);
 	}
 }

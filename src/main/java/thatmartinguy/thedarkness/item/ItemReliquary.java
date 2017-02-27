@@ -1,12 +1,7 @@
 package thatmartinguy.thedarkness.item;
 
-import java.awt.TextComponent;
-
 import com.mojang.realmsclient.gui.ChatFormatting;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -14,15 +9,11 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import thatmartinguy.thedarkness.TheDarkness;
-import thatmartinguy.thedarkness.client.sound.ModSoundEvent;
 import thatmartinguy.thedarkness.data.ReliquaryWorldData;
 import thatmartinguy.thedarkness.potion.ModPotionEffects;
 import thatmartinguy.thedarkness.util.Reference;

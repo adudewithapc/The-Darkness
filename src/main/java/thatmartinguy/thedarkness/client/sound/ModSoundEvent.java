@@ -1,6 +1,5 @@
 package thatmartinguy.thedarkness.client.sound;
 
-import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 

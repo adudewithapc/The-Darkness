@@ -1,7 +1,6 @@
 package thatmartinguy.thedarkness.potion;
 
 import net.minecraft.potion.Potion;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModPotionEffects
 {

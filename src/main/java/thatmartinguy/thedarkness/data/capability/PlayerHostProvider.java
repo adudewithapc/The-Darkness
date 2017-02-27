@@ -11,7 +11,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import thatmartinguy.thedarkness.TheDarkness;
 import thatmartinguy.thedarkness.network.PlayerHostMessage;
@@ -23,7 +22,7 @@ public class PlayerHostProvider implements ICapabilitySerializable<NBTBase>
 	@CapabilityInject(IPlayerHostCapability.class)
 	public static final Capability<IPlayerHostCapability> PLAYER_HOST_CAPABILITY = null;
 	
-	private static final IPlayerHostCapability instance = PLAYER_HOST_CAPABILITY.getDefaultInstance();
+	private final IPlayerHostCapability instance = PLAYER_HOST_CAPABILITY.getDefaultInstance();
 	private static final ResourceLocation IDENTIFIER = new ResourceLocation(Reference.MOD_ID, "isHost");
 	
 	public static void register()
