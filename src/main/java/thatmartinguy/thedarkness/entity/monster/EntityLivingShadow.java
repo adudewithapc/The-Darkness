@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -13,11 +14,14 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import thatmartinguy.thedarkness.item.ModItems;
+import thatmartinguy.thedarkness.loot.ModLootTableList;
 
 public class EntityLivingShadow extends EntityMob
 {
@@ -66,7 +70,7 @@ public class EntityLivingShadow extends EntityMob
 			this.setDropItemsWhenDead(false);
 			this.setDead();
 		}
-		/**if(this.worldObj.checkLight(new BlockPos(this)))
+		/**if(this.worldObj.getLightFromNeighbors(new BlockPos(this)) > 8)
 		{
 			this.setFire(1);
 		}**/
@@ -74,6 +78,45 @@ public class EntityLivingShadow extends EntityMob
 		super.onLivingUpdate();
 	}
 	
+	//Only allows the player to hit the shadow if he is holding a brighstone sword or is in creative
+	@Override
+	public boolean hitByEntity(Entity entity)
+	{
+		if(entity instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer) entity;
+			if(player.isCreative())
+			{
+				return false;
+			}
+			else if(player.getHeldItemMainhand() != null)
+			{
+				if(player.getHeldItemMainhand().getItem() == ModItems.swordBrightstone)
+				{
+					return false;
+				}
+			}
+			else if(player.getHeldItemOffhand() != null)
+			{
+				if(player.getHeldItemOffhand().getItem() == ModItems.swordBrightstone)
+				{
+					return false;
+				}
+			}
+			else if(player.isCreative())
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	@Override
+	protected ResourceLocation getLootTable()
+	{
+		return ModLootTableList.LIVING_SHADOW_LOOT;
+	}
+	//The AI for checking if the living shadow should attack the player
 	static class EntityAIFindPlayer extends EntityAINearestAttackableTarget<EntityPlayer>
 	{
 		private EntityLivingShadow livingShadow;
@@ -153,7 +196,12 @@ public class EntityLivingShadow extends EntityMob
 			}
 			else
 			{
-				return this.targetEntity != null && ((EntityPlayer)this.targetEntity).isEntityAlive() ? true : super.continueExecuting();
+				if(this.targetEntity != null && ((EntityPlayer)this.targetEntity).isEntityAlive() && this.shouldAttackPlayer(targetEntity))
+				{
+					return true;
+				}
+				this.livingShadow.heal(Float.MAX_VALUE);
+				return false;
 			}
 		}
 		

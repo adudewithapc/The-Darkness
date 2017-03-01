@@ -18,7 +18,7 @@ public class ModEntities
 {
 	public static void registerEntities()
 	{
-		registerEntity(EntityLivingShadow.class, "livingShadow", 80, 100, true, 0x000000, 0x000000);
+		registerEntity(EntityLivingShadow.class, "livingShadow", 80, 3, false, 0x000000, 0x000000);
 	}
 	
 	public static void addSpawns()

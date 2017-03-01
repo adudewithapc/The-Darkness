@@ -1,7 +1,6 @@
 package thatmartinguy.thedarkness.client;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -28,6 +27,7 @@ public class ModModelManager
 		registerItemModel(ModItems.itemDarklingSkin);
 		registerItemModel(ModItems.swordBrightstone);
 		registerItemModel(ModItems.swordVoidstone);
+		registerItemModel(ModItems.itemDiary1);
 	}
 	
 	private static void registerItemModel(Item item)

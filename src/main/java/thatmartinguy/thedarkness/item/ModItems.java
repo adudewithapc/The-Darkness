@@ -36,6 +36,7 @@ public class ModItems
 	{
 		registerItem(itemReliquary);
 		registerItem(itemDarklingSkin);
+		registerItem(itemDiary1);
 		
 		GameRegistry.register(swordBrightstone);
 		GameRegistry.register(swordVoidstone);
