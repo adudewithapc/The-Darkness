@@ -5,46 +5,44 @@ import javax.annotation.Nullable;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIBreakDoor;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import thatmartinguy.thedarkness.item.ModItems;
 
 public class EntityLivingShadow extends EntityMob
 {
-
 	public EntityLivingShadow(World worldIn)
 	{
 		super(worldIn);
+		this.setAIMoveSpeed(0.3F);
 		this.setSize(1.0F, 1.4F);
 		this.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(ModItems.swordVoidstone));
 		this.setHeldItem(EnumHand.OFF_HAND, new ItemStack(ModItems.swordVoidstone));
 	}
+
 	
 	@Override
 	protected void initEntityAI()
 	{
-		clearAITasks();
+		clearTasks();
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(2, new EntityAIAttackMelee(this, 4, true));
-		this.tasks.addTask(3, new EntityAIBreakDoor(this));
-		this.tasks.addTask(5, new EntityAIWander(this, 1));
-		this.tasks.addTask(6, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityLivingShadow.AIFindPlayer(this));
+		this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
+		this.tasks.addTask(3, new EntityAIWander(this, 1.5D));
+		this.tasks.addTask(4, new EntityAILookIdle(this));
+		this.targetTasks.addTask(1, new EntityLivingShadow.EntityAIFindPlayer(this));
 	}
 	
-	private void clearAITasks()
+	protected void clearTasks()
 	{
 		this.tasks.taskEntries.clear();
 		this.targetTasks.taskEntries.clear();
@@ -54,49 +52,10 @@ public class EntityLivingShadow extends EntityMob
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0F);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3F);
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(25.0F);
-	}
-	
-	@Override
-	public boolean canBeAttackedWithItem()
-	{
-		if(getAttackingEntity() instanceof EntityPlayer)
-		{
-			EntityPlayer player = (EntityPlayer) getAttackingEntity();
-			//if(player.getHeldItemMainhand() != null)
-			//{
-				return player.getHeldItemMainhand() == new ItemStack(ModItems.swordBrightstone) || player.getHeldItemOffhand() == new ItemStack(ModItems.swordBrightstone);
-			//}
-			//if(player.getHeldItemOffhand() != null)
-			//{
-				//return player.getHeldItemOffhand() == new ItemStack(ModItems.swordBrightstone);
-			//}
-		}
-		return false;
-	}
-	
-	@Override
-	public boolean hitByEntity(Entity entityIn)
-	{
-		return super.hitByEntity(entityIn);
-	}
-	
-	private boolean shouldAttackPlayer(@Nullable EntityPlayer player)
-	{
-		ItemStack heldItemMain = player.getHeldItemMainhand();
-		ItemStack heldItemOff = player.getHeldItemOffhand();
-		
-		if(heldItemMain != null)
-		{
-			return heldItemMain == new ItemStack(ModItems.swordBrightstone);
-		}
-		if(heldItemOff != null)
-		{
-			return heldItemMain == new ItemStack(ModItems.swordBrightstone);
-		}
-		return false;
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5);
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64.0D);
 	}
 	
 	@Override
@@ -105,46 +64,63 @@ public class EntityLivingShadow extends EntityMob
 		if(this.worldObj.isDaytime() && !this.worldObj.isRemote)
 		{
 			this.setDropItemsWhenDead(false);
-			//TODO: Add smoke particles
 			this.setDead();
 		}
-		/**if(this.worldObj.getLight(new BlockPos(this), false) < 7 && !this.worldObj.isRemote)
+		/**if(this.worldObj.checkLight(new BlockPos(this)))
 		{
-			this.setFire(2);
+			this.setFire(1);
 		}**/
 		
 		super.onLivingUpdate();
 	}
 	
-	//AI for finding the nearest player and attacking it if he has a brighstone sword
-	static class AIFindPlayer extends EntityAINearestAttackableTarget<EntityPlayer>
+	static class EntityAIFindPlayer extends EntityAINearestAttackableTarget<EntityPlayer>
 	{
-		private final EntityLivingShadow livingShadow;
+		private EntityLivingShadow livingShadow;
 		private EntityPlayer player;
 		private int aggroTime;
 		
-		public AIFindPlayer(EntityLivingShadow entity)
+		public EntityAIFindPlayer(EntityLivingShadow livingShadow)
 		{
-			super(entity, EntityPlayer.class, false);
-			this.livingShadow = entity;
+			super(livingShadow, EntityPlayer.class, false);
+			this.livingShadow = livingShadow;
+		}
+		
+		private boolean shouldAttackPlayer(@Nullable EntityPlayer player)
+		{
+			if(player != null)
+			{
+				if(player.getHeldItemMainhand() != null)
+				{
+					if(player.getHeldItemMainhand().getItem() == ModItems.swordBrightstone)
+					{
+						return true;
+					}
+				}
+				else if(player.getHeldItemOffhand() != null)
+				{
+					if(player.getHeldItemOffhand().getItem() == ModItems.swordBrightstone)
+					{
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 		
 		@Override
 		public boolean shouldExecute()
 		{
-			double targetDistance = getTargetDistance();
+			double targetDistance = this.getTargetDistance();
 			this.player = this.livingShadow.worldObj.getNearestAttackablePlayer(this.livingShadow.posX, this.livingShadow.posY, this.livingShadow.posZ, targetDistance, targetDistance, (Function<EntityPlayer, Double>)null, new Predicate<EntityPlayer>()
 			{
 				@Override
-				public boolean apply(@Nullable EntityPlayer player)
+				public boolean apply(EntityPlayer input)
 				{
-					System.out.println("Is player null: " + player != null);
-					System.out.println("Should the AI attack the player: " + AIFindPlayer.this.livingShadow.shouldAttackPlayer(player));
-					return player != null && AIFindPlayer.this.livingShadow.shouldAttackPlayer(player);
+					return input != null && shouldAttackPlayer(input);
 				}
 			});
-			
-			return false;
+			return this.player != null;
 		}
 		
 		@Override
@@ -165,17 +141,20 @@ public class EntityLivingShadow extends EntityMob
 		{
 			if(this.player != null)
 			{
-				if(!this.livingShadow.shouldAttackPlayer(player))
+				if(!this.shouldAttackPlayer(player))
 				{
 					return false;
 				}
-				else
+				else 
 				{
-					this.livingShadow.faceEntity(livingShadow, 10.0F, 10.0F);
+					this.livingShadow.faceEntity(player, 10.0F, 10.0F);
 					return true;
 				}
 			}
-			return false;
+			else
+			{
+				return this.targetEntity != null && ((EntityPlayer)this.targetEntity).isEntityAlive() ? true : super.continueExecuting();
+			}
 		}
 		
 		@Override
@@ -185,7 +164,7 @@ public class EntityLivingShadow extends EntityMob
 			{
 				if(--this.aggroTime <= 0)
 				{
-					this.targetEntity = this.player;
+					this.targetEntity = player;
 					this.player = null;
 					super.startExecuting();
 				}

@@ -18,12 +18,12 @@ public class ModEntities
 {
 	public static void registerEntities()
 	{
-		registerEntity(EntityLivingShadow.class, "livingShadow", 80, 20, true, 0x000000, 0x000000);
+		registerEntity(EntityLivingShadow.class, "livingShadow", 80, 100, true, 0x000000, 0x000000);
 	}
 	
 	public static void addSpawns()
 	{
-		addSpawn(EntityLivingShadow.class, 100, 1, 3, EnumCreatureType.MONSTER, getAllBiomes());
+		addSpawn(EntityLivingShadow.class, "livingShadow", 100, 1, 3, EnumCreatureType.MONSTER, getAllBiomes());
 	}
 	
 	private static Biome[] getBiomes(BiomeDictionary.Type type)
@@ -37,22 +37,22 @@ public class ModEntities
 		return Iterables.toArray(biomes, Biome.class);
 	}
 	
-	private static int entityID = 0;
+	private static int entityID = -1;
 	
-	private static void registerEntity(Class<? extends Entity> entity, String entityName)
+	private static void registerEntity(Class<? extends Entity> entity, String name, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates)
 	{
-		final ResourceLocation registryName = new ResourceLocation(Reference.MOD_ID, entityName);
-		EntityRegistry.registerModEntity(entity, registryName.toString(), entityID++, TheDarkness.instance, 80, 100, true);
+		ResourceLocation registryName = new ResourceLocation(Reference.MOD_ID, name);
+		EntityRegistry.registerModEntity(entity, registryName.toString(), entityID++, TheDarkness.instance, trackingRange, updateFrequency, sendsVelocityUpdates);
 	}
 	
-	private static void registerEntity(Class<? extends Entity> entity, String entityName, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates, int eggPrimary, int eggSecondary)
+	private static void registerEntity(Class<? extends Entity> entity, String name, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates, int eggPrimary, int eggSecondary)
 	{
-		final ResourceLocation registryName = new ResourceLocation(Reference.MOD_ID,entityName);
+		ResourceLocation registryName = new ResourceLocation(Reference.MOD_ID, name);
 		EntityRegistry.registerModEntity(entity, registryName.toString(), entityID++, TheDarkness.instance, trackingRange, updateFrequency, sendsVelocityUpdates, eggPrimary, eggSecondary);
 	}
 	
-	private static void addSpawn(Class<? extends EntityLiving> entity, int probability, int minSpawnCount, int maxSpawnCount, EnumCreatureType creatureType, Biome... biomes)
+	private static void addSpawn(Class<? extends EntityLiving> entity, String name, int probability, int minSpawn, int maxSpawn, EnumCreatureType creatureType, Biome... biomes)
 	{
-		EntityRegistry.addSpawn(entity, probability, minSpawnCount, maxSpawnCount, creatureType, biomes);
+		EntityRegistry.addSpawn(entity, probability, minSpawn, maxSpawn, creatureType, biomes);
 	}
 }
