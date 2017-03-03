@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import thatmartinguy.thedarkness.data.ReliquaryWorldData;
+import thatmartinguy.thedarkness.data.ModWorldData;
 import thatmartinguy.thedarkness.item.ModItems;
 
 public class ModShapedRecipe extends ShapedOreRecipe
@@ -28,7 +28,7 @@ public class ModShapedRecipe extends ShapedOreRecipe
 	@Override
 	public boolean matches(InventoryCrafting inv, World worldIn)
 	{
-		final ReliquaryWorldData worldData = ReliquaryWorldData.get(worldIn);
+		final ModWorldData worldData = ModWorldData.get(worldIn);
 		return !worldData.isReliquaryCrafted() && super.matches(inv, worldIn);
 	}
 }

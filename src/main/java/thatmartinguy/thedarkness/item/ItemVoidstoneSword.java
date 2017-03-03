@@ -28,5 +28,12 @@ public class ItemVoidstoneSword extends ItemSword
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		tooltip.add(ChatFormatting.DARK_GRAY + "...and the darkness consumes it.");
+		tooltip.add(ChatFormatting.DARK_BLUE + "Night's Champion I");
+	}
+	
+	@Override
+	public boolean hasEffect(ItemStack stack)
+	{
+		return true;
 	}
 }

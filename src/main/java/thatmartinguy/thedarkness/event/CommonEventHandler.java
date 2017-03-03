@@ -7,6 +7,7 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
@@ -15,41 +16,46 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
+import thatmartinguy.thedarkness.achievement.ModAchievements;
+import thatmartinguy.thedarkness.block.ModBlocks;
+import thatmartinguy.thedarkness.data.ModWorldData;
 import thatmartinguy.thedarkness.data.capability.IPlayerHostCapability;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
+import thatmartinguy.thedarkness.entity.monster.EntityLivingShadow;
 import thatmartinguy.thedarkness.item.ModItems;
 import thatmartinguy.thedarkness.potion.ModPotionEffects;
 
 public class CommonEventHandler
 {
-	
-	//Hit the player with lightning if he killed a darkling
+	//Hit the player with lightning if he killed a living shadow
 	@SubscribeEvent
 	public void entityDiedEvent(LivingDeathEvent event)
 	{
-		//TODO: Check what was killed
 		EntityLivingBase victim = event.getEntityLiving();
-		DamageSource source = event.getSource();
-		if(source.getDamageType().equals("player"))
+		if(victim instanceof EntityLivingShadow)
 		{
-			EntityPlayer player = (EntityPlayer) source.getEntity();
-			if(player == null) return;
-			
-			//Check if the player is affected by any Reliquary effect
-			if(!player.isPotionActive(MobEffects.BLINDNESS) && !player.isPotionActive(MobEffects.BLINDNESS) 
-					&& !player.isPotionActive(MobEffects.SLOWNESS) && !player.isPotionActive(MobEffects.MINING_FATIGUE) 
-					&& !player.isPotionActive(MobEffects.WEAKNESS))
+			DamageSource source = event.getSource();
+			if(source.getDamageType().equals("player"))
 			{
-				if(player.isPotionActive(ModPotionEffects.effectReliquary))
+				EntityPlayer player = (EntityPlayer) source.getEntity();
+				if(player == null) return;
+				
+				//Check if the player is affected by any Reliquary effect
+				if(!player.isPotionActive(MobEffects.BLINDNESS) && !player.isPotionActive(MobEffects.BLINDNESS) 
+						&& !player.isPotionActive(MobEffects.SLOWNESS) && !player.isPotionActive(MobEffects.MINING_FATIGUE) 
+						&& !player.isPotionActive(MobEffects.WEAKNESS))
 				{
-					if(!player.worldObj.isRemote)
+					if(player.isPotionActive(ModPotionEffects.effectReliquary) && !player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null).isHost())
 					{
-						player.worldObj.spawnEntityInWorld(new EntityLightningBolt(player.worldObj, player.posX, player.posY, player.posZ, false));
-						player.addChatMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "I consume you..."));
-					}
-					else
-					{
-						player.worldObj.playSound(player.posX, player.posY, player.posZ, SoundEvents.BLOCK_PORTAL_TRAVEL, SoundCategory.MASTER, 1, 1, false);
+						if(!player.world.isRemote)
+						{
+							player.world.spawnEntity(new EntityLightningBolt(player.world, player.posX, player.posY, player.posZ, false));
+						}
+						else
+						{
+							player.world.playSound(player.posX, player.posY, player.posZ, SoundEvents.BLOCK_PORTAL_TRAVEL, SoundCategory.MASTER, 1, 1, false);
+						}
 					}
 				}
 			}
@@ -72,16 +78,22 @@ public class CommonEventHandler
 				{
 					player.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(ModItems.swordVoidstone));
 					//Set time to night
-					player.worldObj.setWorldTime(13048);
+					player.world.setWorldTime(13048);
 					
 					IPlayerHostCapability host = player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null);
 					host.setHost(true);
-					System.out.println("Player is host = " + host.isHost());
 					
-					if(!player.worldObj.isRemote)
+					player.removePotionEffect(ModPotionEffects.effectReliquary);
+					
+					player.addStat(ModAchievements.transform);
+					
+					if(!player.world.isRemote)
 					{
 						event.getEntity().playSound(SoundEvents.BLOCK_PORTAL_TRIGGER, 1, 1);
-						player.addChatMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "You are one with me!"));
+						player.sendMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "You are one with me!"));
+						
+						final ModWorldData worldData = ModWorldData.get(player.world);
+						worldData.setHostUUID(player.getUniqueID().toString());
 					}
 				}
 			}
@@ -91,20 +103,25 @@ public class CommonEventHandler
 				{
 					player.setHeldItem(EnumHand.OFF_HAND, new ItemStack(ModItems.swordVoidstone));
 					//Set time to night
-					player.worldObj.setWorldTime(13048);
+					player.world.setWorldTime(13048);
 					
 					IPlayerHostCapability host = player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null);
 					host.setHost(true);
-					System.out.println("Player is host = " + host.isHost());
 					
-					if(!player.worldObj.isRemote)
+					player.removePotionEffect(ModPotionEffects.effectReliquary);
+					
+					player.addStat(ModAchievements.transform);
+					
+					if(!player.world.isRemote)
 					{
 						event.getEntity().playSound(SoundEvents.BLOCK_PORTAL_TRIGGER, 1, 1);
-						player.addChatMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "You are one with me!"));
+						player.sendMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "You are one with me!"));
+						
+						final ModWorldData worldData = ModWorldData.get(player.world);
+						worldData.setHostUUID(player.getUniqueID().toString());
 					}
 				}
 			}
 		}
 	}
-
 }

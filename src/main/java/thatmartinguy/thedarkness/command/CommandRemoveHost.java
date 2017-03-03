@@ -6,22 +6,21 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
-import thatmartinguy.thedarkness.data.ModWorldData;
+import thatmartinguy.thedarkness.data.capability.IPlayerHostCapability;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
 
-//Temporary test command that will be removed upon release
-public class CommandCheckHost extends CommandBase
+public class CommandRemoveHost extends CommandBase
 {
 	@Override
 	public String getName()
 	{
-		return "checkhost";
+		return "removehost";
 	}
 
 	@Override
 	public String getUsage(ICommandSender sender)
 	{
-		return "checkhost";
+		return "removehost";
 	}
 
 	@Override
@@ -29,9 +28,9 @@ public class CommandCheckHost extends CommandBase
 	{
 		if(sender.getCommandSenderEntity() instanceof EntityPlayer)
 		{
-			EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
-			player.sendMessage(new TextComponentString("The player is host = " + player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null).isHost()));
-			System.out.println(ModWorldData.get(player.world).getHostUUID());
+			IPlayerHostCapability host = sender.getCommandSenderEntity().getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null);
+			host.setHost(false);
+			sender.getCommandSenderEntity().sendMessage(new TextComponentString("You are no longer a host"));
 		}
 	}
 }

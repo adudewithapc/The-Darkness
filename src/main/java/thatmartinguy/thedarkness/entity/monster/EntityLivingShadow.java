@@ -65,15 +65,11 @@ public class EntityLivingShadow extends EntityMob
 	@Override
 	public void onLivingUpdate()
 	{
-		if(this.worldObj.isDaytime() && !this.worldObj.isRemote)
+		if(this.world.isDaytime() && !this.world.isRemote)
 		{
 			this.setDropItemsWhenDead(false);
 			this.setDead();
 		}
-		/**if(this.worldObj.getLightFromNeighbors(new BlockPos(this)) > 8)
-		{
-			this.setFire(1);
-		}**/
 		
 		super.onLivingUpdate();
 	}
@@ -155,7 +151,7 @@ public class EntityLivingShadow extends EntityMob
 		public boolean shouldExecute()
 		{
 			double targetDistance = this.getTargetDistance();
-			this.player = this.livingShadow.worldObj.getNearestAttackablePlayer(this.livingShadow.posX, this.livingShadow.posY, this.livingShadow.posZ, targetDistance, targetDistance, (Function<EntityPlayer, Double>)null, new Predicate<EntityPlayer>()
+			this.player = this.livingShadow.world.getNearestAttackablePlayer(this.livingShadow.posX, this.livingShadow.posY, this.livingShadow.posZ, targetDistance, targetDistance, (Function<EntityPlayer, Double>)null, new Predicate<EntityPlayer>()
 			{
 				@Override
 				public boolean apply(EntityPlayer input)

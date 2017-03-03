@@ -1,8 +1,10 @@
 # Items
 item.thedarkness:itemReliquary.name=Reliquary
-item.thedarkness:itemDarklingSkin.name=Darkling Skin
+item.thedarkness:itemDarklingSkin.name=Shadow Skin
 item.thedarkness:swordBrightstone.name=Brightstone Sword
 item.thedarkness:swordVoidstone.name=Voidstone Sword
+item.thedarkness:itemDiaryOne.name=Diary
+item.thedarkness:itemHumanHeart.name=Human Heart
 
 # Blocks
 tile.thedarkness:blockBrightstone.name=Brightstone
@@ -12,3 +14,13 @@ entity.thedarkness.thedarkness:livingShadow.name=Living Shadow
 
 # Creative Tab
 itemGroup.tabDarkness=The Darkness
+
+# Achievements
+achievement.acquireDiary=The Sun Warrior
+achievement.acquireBrightstoneSword=For a Brighter Future
+achievement.transform=This wasn't the plan!
+
+# Achievement descriptions
+achievement.acquireDiary.desc=Read the diary of the Sun Warrior
+achievement.acquireBrightstoneSword.desc=Craft a Brighstone Sword
+achievement.transform.desc=Complete your transformation

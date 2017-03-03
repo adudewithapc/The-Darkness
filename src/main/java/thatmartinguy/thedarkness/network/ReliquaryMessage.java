@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import thatmartinguy.thedarkness.data.ReliquaryWorldData;
+import thatmartinguy.thedarkness.data.ModWorldData;
 
 public class ReliquaryMessage implements IMessage
 {
@@ -44,8 +44,8 @@ public class ReliquaryMessage implements IMessage
 					@Override
 					public void run()
 					{
-						final ReliquaryWorldData reliquaryWorldData = ReliquaryWorldData.get(Minecraft.getMinecraft().theWorld);
-						reliquaryWorldData.setReliquaryCrafted(message.reliquaryCrafted);
+						final ModWorldData worldData = ModWorldData.get(Minecraft.getMinecraft().world);
+						worldData.setReliquaryCrafted(message.reliquaryCrafted);
 					}
 				});
 			return null;

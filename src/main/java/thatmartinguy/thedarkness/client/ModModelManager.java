@@ -25,9 +25,12 @@ public class ModModelManager
 	{
 		registerItemModel(ModItems.itemReliquary);
 		registerItemModel(ModItems.itemDarklingSkin);
+		registerItemModel(ModItems.itemHumanHeart);
+		
 		registerItemModel(ModItems.swordBrightstone);
 		registerItemModel(ModItems.swordVoidstone);
-		registerItemModel(ModItems.itemDiary1);
+		
+		registerItemModel(ModItems.itemDiaryOne);
 	}
 	
 	private static void registerItemModel(Item item)
@@ -42,7 +45,7 @@ public class ModModelManager
 	
 	private static void registerBlockModel(Block block)
 	{
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "normal"));
 	}
 	
 	private static void registerMobModels()

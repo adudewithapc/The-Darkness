@@ -1,5 +1,7 @@
 package thatmartinguy.thedarkness.entity;
 
+import java.util.Set;
+
 import com.google.common.collect.Iterables;
 
 import net.minecraft.entity.Entity;
@@ -26,9 +28,9 @@ public class ModEntities
 		addSpawn(EntityLivingShadow.class, "livingShadow", 100, 1, 3, EnumCreatureType.MONSTER, getAllBiomes());
 	}
 	
-	private static Biome[] getBiomes(BiomeDictionary.Type type)
+	private static Set<Biome> getBiomes(BiomeDictionary.Type type)
 	{
-		return BiomeDictionary.getBiomesForType(type);
+		return BiomeDictionary.getBiomes(type);
 	}
 	
 	private static Biome[] getAllBiomes()
@@ -42,13 +44,13 @@ public class ModEntities
 	private static void registerEntity(Class<? extends Entity> entity, String name, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates)
 	{
 		ResourceLocation registryName = new ResourceLocation(Reference.MOD_ID, name);
-		EntityRegistry.registerModEntity(entity, registryName.toString(), entityID++, TheDarkness.instance, trackingRange, updateFrequency, sendsVelocityUpdates);
+		EntityRegistry.registerModEntity(registryName, entity, registryName.toString(), entityID++, TheDarkness.instance, trackingRange, updateFrequency, sendsVelocityUpdates);
 	}
 	
 	private static void registerEntity(Class<? extends Entity> entity, String name, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates, int eggPrimary, int eggSecondary)
 	{
 		ResourceLocation registryName = new ResourceLocation(Reference.MOD_ID, name);
-		EntityRegistry.registerModEntity(entity, registryName.toString(), entityID++, TheDarkness.instance, trackingRange, updateFrequency, sendsVelocityUpdates, eggPrimary, eggSecondary);
+		EntityRegistry.registerModEntity(registryName, entity, registryName.toString(), entityID++, TheDarkness.instance, trackingRange, updateFrequency, sendsVelocityUpdates, eggPrimary, eggSecondary);
 	}
 	
 	private static void addSpawn(Class<? extends EntityLiving> entity, String name, int probability, int minSpawn, int maxSpawn, EnumCreatureType creatureType, Biome... biomes)

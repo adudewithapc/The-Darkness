@@ -14,7 +14,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import thatmartinguy.thedarkness.TheDarkness;
-import thatmartinguy.thedarkness.data.ReliquaryWorldData;
+import thatmartinguy.thedarkness.data.ModWorldData;
 import thatmartinguy.thedarkness.potion.ModPotionEffects;
 import thatmartinguy.thedarkness.util.Reference;
 
@@ -47,9 +47,10 @@ public class ItemReliquary extends ItemFood
 	@Override
 	public void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player)
 	{
+		
 		if(worldIn.isRemote)
 		{
-			player.addChatMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "" + ChatFormatting.ITALIC + "I consume you..."));
+			player.sendMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "" + ChatFormatting.ITALIC + "I consume you..."));
 			worldIn.playSound(player.posX, player.posY, player.posZ, SoundEvents.BLOCK_PORTAL_TRIGGER, SoundCategory.MASTER, 1, 1, false);
 		}
 		if(!worldIn.isRemote)
@@ -75,8 +76,7 @@ public class ItemReliquary extends ItemFood
 	@Override
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn)
 	{
-		System.out.println("item created");
-		final ReliquaryWorldData worldData = ReliquaryWorldData.get(worldIn);
+		final ModWorldData worldData = ModWorldData.get(worldIn);
 		worldData.setReliquaryCrafted(true);
 	}
 	
