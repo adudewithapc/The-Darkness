@@ -10,7 +10,10 @@ item.thedarkness:itemHumanHeart.name=Human Heart
 tile.thedarkness:blockBrightstone.name=Brightstone
 
 # Entities
-entity.thedarkness.thedarkness:livingShadow.name=Living Shadow
+entity.thedarkness:livingshadow.name=Living Shadow
+entity.thedarkness:human.name=Human
+entity.thedarkness:humanciv.name=Human Civillian
+entity.thedarkness:humanfighter.name=Human Fighter
 
 # Creative Tab
 itemGroup.tabDarkness=The Darkness

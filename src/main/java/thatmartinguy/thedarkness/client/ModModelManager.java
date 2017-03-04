@@ -8,8 +8,14 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import thatmartinguy.thedarkness.block.ModBlocks;
-import thatmartinguy.thedarkness.entity.monster.EntityLivingShadow;
-import thatmartinguy.thedarkness.entity.monster.RenderLivingShadow;
+import thatmartinguy.thedarkness.entity.mob.EntityHuman;
+import thatmartinguy.thedarkness.entity.mob.EntityHumanCivilian;
+import thatmartinguy.thedarkness.entity.mob.EntityHumanFighter;
+import thatmartinguy.thedarkness.entity.mob.EntityLivingShadow;
+import thatmartinguy.thedarkness.entity.mob.RenderHuman;
+import thatmartinguy.thedarkness.entity.mob.RenderHumanCivilian;
+import thatmartinguy.thedarkness.entity.mob.RenderHumanFighter;
+import thatmartinguy.thedarkness.entity.mob.RenderLivingShadow;
 import thatmartinguy.thedarkness.item.ModItems;
 
 public class ModModelManager
@@ -51,6 +57,9 @@ public class ModModelManager
 	private static void registerMobModels()
 	{
 		registerMobModel(EntityLivingShadow.class, RenderLivingShadow::new);
+		registerMobModel(EntityHuman.class, RenderHuman::new);
+		registerMobModel(EntityHumanCivilian.class, RenderHumanCivilian::new);
+		registerMobModel(EntityHumanFighter.class, RenderHumanFighter::new);
 	}
 	
 	private static <T extends Entity> void registerMobModel(Class<T> entity, IRenderFactory<? super T> renderFactory)

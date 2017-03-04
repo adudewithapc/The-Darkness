@@ -22,7 +22,7 @@ import thatmartinguy.thedarkness.block.ModBlocks;
 import thatmartinguy.thedarkness.data.ModWorldData;
 import thatmartinguy.thedarkness.data.capability.IPlayerHostCapability;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
-import thatmartinguy.thedarkness.entity.monster.EntityLivingShadow;
+import thatmartinguy.thedarkness.entity.mob.EntityLivingShadow;
 import thatmartinguy.thedarkness.item.ModItems;
 import thatmartinguy.thedarkness.potion.ModPotionEffects;
 

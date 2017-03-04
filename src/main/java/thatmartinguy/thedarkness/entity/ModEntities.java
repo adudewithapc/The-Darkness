@@ -13,19 +13,26 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import thatmartinguy.thedarkness.TheDarkness;
-import thatmartinguy.thedarkness.entity.monster.EntityLivingShadow;
+import thatmartinguy.thedarkness.entity.mob.EntityHuman;
+import thatmartinguy.thedarkness.entity.mob.EntityHumanCivilian;
+import thatmartinguy.thedarkness.entity.mob.EntityHumanFighter;
+import thatmartinguy.thedarkness.entity.mob.EntityLivingShadow;
 import thatmartinguy.thedarkness.util.Reference;
 
 public class ModEntities
 {
+	private static int entityID = -1;
 	public static void registerEntities()
 	{
-		registerEntity(EntityLivingShadow.class, "livingShadow", 80, 3, false, 0x000000, 0x000000);
+		registerEntity(EntityLivingShadow.class, "livingshadow", entityID++, 80, 3, false, 0x000000, 0x000000);
+		//registerEntity(EntityHuman.class, "human", 80, 3, false);
+		registerEntity(EntityHumanCivilian.class, "humanciv", entityID++, 80, 3, false);
+		registerEntity(EntityHumanFighter.class, "humanfighter", entityID++, 80, 3, false);
 	}
 	
 	public static void addSpawns()
 	{
-		addSpawn(EntityLivingShadow.class, "livingShadow", 100, 1, 3, EnumCreatureType.MONSTER, getAllBiomes());
+		addSpawn(EntityLivingShadow.class, "livingshadow", 100, 1, 3, EnumCreatureType.MONSTER, getAllBiomes());
 	}
 	
 	private static Set<Biome> getBiomes(BiomeDictionary.Type type)
@@ -39,22 +46,26 @@ public class ModEntities
 		return Iterables.toArray(biomes, Biome.class);
 	}
 	
-	private static int entityID = -1;
-	
-	private static void registerEntity(Class<? extends Entity> entity, String name, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates)
+	private static void registerEntity(Class<? extends Entity> entity, String name, int id, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates)
 	{
 		ResourceLocation registryName = new ResourceLocation(Reference.MOD_ID, name);
-		EntityRegistry.registerModEntity(registryName, entity, registryName.toString(), entityID++, TheDarkness.instance, trackingRange, updateFrequency, sendsVelocityUpdates);
+		EntityRegistry.registerModEntity(registryName, entity, registryName.toString(), id, TheDarkness.instance, trackingRange, updateFrequency, sendsVelocityUpdates);
 	}
 	
-	private static void registerEntity(Class<? extends Entity> entity, String name, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates, int eggPrimary, int eggSecondary)
+	private static void registerEntity(Class<? extends Entity> entity, String name, int id, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates, int eggPrimary, int eggSecondary)
 	{
 		ResourceLocation registryName = new ResourceLocation(Reference.MOD_ID, name);
-		EntityRegistry.registerModEntity(registryName, entity, registryName.toString(), entityID++, TheDarkness.instance, trackingRange, updateFrequency, sendsVelocityUpdates, eggPrimary, eggSecondary);
+		EntityRegistry.registerModEntity(registryName, entity, registryName.toString(), id, TheDarkness.instance, trackingRange, updateFrequency, sendsVelocityUpdates, eggPrimary, eggSecondary);
 	}
 	
 	private static void addSpawn(Class<? extends EntityLiving> entity, String name, int probability, int minSpawn, int maxSpawn, EnumCreatureType creatureType, Biome... biomes)
 	{
 		EntityRegistry.addSpawn(entity, probability, minSpawn, maxSpawn, creatureType, biomes);
+	}
+	
+	private static void registerEgg(String name, int eggPrimary, int eggSecondary)
+	{
+		ResourceLocation registryName = new ResourceLocation(Reference.MOD_ID, name);
+		EntityRegistry.registerEgg(registryName, eggPrimary, eggSecondary);
 	}
 }

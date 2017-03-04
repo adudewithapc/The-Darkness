@@ -17,9 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import thatmartinguy.thedarkness.achievement.ModAchievements;
 import thatmartinguy.thedarkness.block.ModBlocks;
 import thatmartinguy.thedarkness.client.gui.ModGuiHandler;
-import thatmartinguy.thedarkness.command.CommandCheckHost;
-import thatmartinguy.thedarkness.command.CommandRemoveHost;
-import thatmartinguy.thedarkness.command.CommandResetReliquaryCraftedState;
+import thatmartinguy.thedarkness.command.*;
 import thatmartinguy.thedarkness.crafting.ModCrafting;
 import thatmartinguy.thedarkness.crafting.ModShapedRecipe;
 import thatmartinguy.thedarkness.data.ModWorldData;
@@ -97,6 +95,7 @@ public class TheDarkness
 		event.registerServerCommand(new CommandResetReliquaryCraftedState());
 		event.registerServerCommand(new CommandCheckHost());
 		event.registerServerCommand(new CommandRemoveHost());
+		event.registerServerCommand(new CommandMakeHost());
 	}
 	
 	@EventHandler
