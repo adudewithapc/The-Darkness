@@ -1,9 +1,8 @@
 package thatmartinguy.thedarkness;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import thatmartinguy.thedarkness.item.ModItems;
 
 public class TabDarkness extends CreativeTabs
 {
@@ -18,7 +17,7 @@ public class TabDarkness extends CreativeTabs
 	@Override
 	public ItemStack getTabIconItem()
 	{
-		return new ItemStack(Item.getItemFromBlock(Blocks.BEDROCK));
+		return new ItemStack(ModItems.itemReliquary);
 	}
 
 }

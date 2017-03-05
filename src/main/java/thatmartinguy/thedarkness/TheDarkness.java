@@ -17,7 +17,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import thatmartinguy.thedarkness.achievement.ModAchievements;
 import thatmartinguy.thedarkness.block.ModBlocks;
 import thatmartinguy.thedarkness.client.gui.ModGuiHandler;
-import thatmartinguy.thedarkness.command.*;
+import thatmartinguy.thedarkness.command.CommandCheckHost;
+import thatmartinguy.thedarkness.command.CommandMakeHost;
+import thatmartinguy.thedarkness.command.CommandRemoveHost;
+import thatmartinguy.thedarkness.command.CommandResetReliquaryCraftedState;
 import thatmartinguy.thedarkness.crafting.ModCrafting;
 import thatmartinguy.thedarkness.crafting.ModShapedRecipe;
 import thatmartinguy.thedarkness.data.ModWorldData;
@@ -28,7 +31,6 @@ import thatmartinguy.thedarkness.event.CapabilityEventHandler;
 import thatmartinguy.thedarkness.event.CommonEventHandler;
 import thatmartinguy.thedarkness.item.ModItems;
 import thatmartinguy.thedarkness.network.PlayerHostMessage;
-import thatmartinguy.thedarkness.network.PlayerHostUUIDMessage;
 import thatmartinguy.thedarkness.network.ReliquaryMessage;
 import thatmartinguy.thedarkness.potion.ModPotionEffects;
 import thatmartinguy.thedarkness.proxy.IProxy;
@@ -61,7 +63,6 @@ public class TheDarkness
 		int id = -1;
 		NETWORK.registerMessage(ReliquaryMessage.Handler.class, ReliquaryMessage.class, id++, Side.CLIENT);
 		NETWORK.registerMessage(PlayerHostMessage.Handler.class, PlayerHostMessage.class, id++, Side.CLIENT);
-		NETWORK.registerMessage(PlayerHostUUIDMessage.Handler.class, PlayerHostUUIDMessage.class, id++, Side.CLIENT);
 	}
 	
 	@EventHandler

@@ -31,9 +31,9 @@ public class EntityLivingShadow extends EntityMob
 		this.setSize(1.0F, 1.4F);
 		this.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(ModItems.swordVoidstone));
 		this.setHeldItem(EnumHand.OFF_HAND, new ItemStack(ModItems.swordVoidstone));
-		this.inventoryHandsDropChances[0] = 0;
-		this.inventoryHandsDropChances[1] = 0;
-		this.inventoryHandsDropChances[2] = 0;
+		//this.inventoryHandsDropChances[0] = 0;
+		//this.inventoryHandsDropChances[1] = 0;
+		//this.inventoryHandsDropChances[2] = 0;
 	}
 
 	

@@ -1,9 +1,9 @@
 package thatmartinguy.thedarkness.entity.mob;
 
-import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import thatmartinguy.thedarkness.entity.model.ModelHuman;
 import thatmartinguy.thedarkness.util.Reference;
 
 public class RenderHuman extends RenderLiving<EntityHuman>
@@ -17,7 +17,7 @@ public class RenderHuman extends RenderLiving<EntityHuman>
 	
 	public RenderHuman(RenderManager renderManagerIn, boolean useSmallArms)
 	{
-		super(renderManagerIn, new ModelPlayer(0.0F, useSmallArms), 0.5F);
+		super(renderManagerIn, new ModelHuman(), 0.5F);
 	}
 
 	@Override

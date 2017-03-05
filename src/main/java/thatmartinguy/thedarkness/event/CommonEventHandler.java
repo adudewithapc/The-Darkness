@@ -91,9 +91,6 @@ public class CommonEventHandler
 					{
 						event.getEntity().playSound(SoundEvents.BLOCK_PORTAL_TRIGGER, 1, 1);
 						player.sendMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "You are one with me!"));
-						
-						final ModWorldData worldData = ModWorldData.get(player.world);
-						worldData.setHostUUID(player.getUniqueID().toString());
 					}
 				}
 			}
@@ -116,9 +113,6 @@ public class CommonEventHandler
 					{
 						event.getEntity().playSound(SoundEvents.BLOCK_PORTAL_TRIGGER, 1, 1);
 						player.sendMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "You are one with me!"));
-						
-						final ModWorldData worldData = ModWorldData.get(player.world);
-						worldData.setHostUUID(player.getUniqueID().toString());
 					}
 				}
 			}

@@ -31,7 +31,6 @@ public class CommandCheckHost extends CommandBase
 		{
 			EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
 			player.sendMessage(new TextComponentString("The player is host = " + player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null).isHost()));
-			System.out.println(ModWorldData.get(player.world).getHostUUID());
 		}
 	}
 }

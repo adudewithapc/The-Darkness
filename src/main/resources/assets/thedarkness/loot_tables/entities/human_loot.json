@@ -1,0 +1,16 @@
+{
+    "pools":
+    [
+    {
+        "name": "human_loot",
+        "rolls": 1,
+        "entries": 
+        [
+        {
+            "type": "item",
+            "name": "thedarkness:ItemHumanHeart"
+        }
+        ]
+    }
+    ]
+}

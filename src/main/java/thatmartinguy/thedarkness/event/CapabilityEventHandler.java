@@ -44,14 +44,14 @@ public class CapabilityEventHandler
 				{
 					if(player.getHeldItemMainhand().getItem() == ModItems.swordVoidstone && !player.world.isDaytime() && !player.world.isRemote)
 					{
-						player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20, 0, false, false));
+						player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 19, 0, false, false));
 					}
 				}
 				if(player.getHeldItemOffhand() != null)
 				{
 					if(player.getHeldItemOffhand().getItem() == ModItems.swordVoidstone && !player.world.isDaytime() && !player.world.isRemote)
 					{
-						player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20, 0, false, false));
+						player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 19, 0, false, false));
 					}
 				}
 			}

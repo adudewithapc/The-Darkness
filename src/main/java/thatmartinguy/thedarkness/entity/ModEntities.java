@@ -13,7 +13,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import thatmartinguy.thedarkness.TheDarkness;
-import thatmartinguy.thedarkness.entity.mob.EntityHuman;
+import thatmartinguy.thedarkness.entity.mob.EntityHumanArcher;
 import thatmartinguy.thedarkness.entity.mob.EntityHumanCivilian;
 import thatmartinguy.thedarkness.entity.mob.EntityHumanFighter;
 import thatmartinguy.thedarkness.entity.mob.EntityLivingShadow;
@@ -24,15 +24,16 @@ public class ModEntities
 	private static int entityID = -1;
 	public static void registerEntities()
 	{
-		registerEntity(EntityLivingShadow.class, "livingshadow", entityID++, 80, 3, false, 0x000000, 0x000000);
+		registerEntity(EntityLivingShadow.class, "livingShadow", entityID++, 80, 3, false, 0x000000, 0x000000);
 		//registerEntity(EntityHuman.class, "human", 80, 3, false);
 		registerEntity(EntityHumanCivilian.class, "humanciv", entityID++, 80, 3, false);
 		registerEntity(EntityHumanFighter.class, "humanfighter", entityID++, 80, 3, false);
+		registerEntity(EntityHumanArcher.class, "humanarcher", entityID++, 80, 3, false);
 	}
 	
 	public static void addSpawns()
 	{
-		addSpawn(EntityLivingShadow.class, "livingshadow", 100, 1, 3, EnumCreatureType.MONSTER, getAllBiomes());
+		addSpawn(EntityLivingShadow.class, "livingShadow", 100, 1, 3, EnumCreatureType.MONSTER, getAllBiomes());
 	}
 	
 	private static Set<Biome> getBiomes(BiomeDictionary.Type type)

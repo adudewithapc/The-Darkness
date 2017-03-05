@@ -15,9 +15,12 @@ import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import thatmartinguy.thedarkness.data.capability.IPlayerHostCapability;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
+import thatmartinguy.thedarkness.loot.ModLootTableList;
+import thatmartinguy.thedarkness.util.Reference;
 
 public class EntityHuman extends EntityMob
 {
@@ -37,8 +40,7 @@ public class EntityHuman extends EntityMob
 		this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.5D));
 		this.tasks.addTask(6, new EntityAILookIdle(this));
 		this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.targetTasks.addTask(1, new EntityAINearestHost(this));
-		this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, true, new Class[0]));
+		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
 	}
 	
 	private void clearTasks()
@@ -55,6 +57,12 @@ public class EntityHuman extends EntityMob
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(16.0D);
+	}	
+	
+	@Override
+	protected ResourceLocation getLootTable()
+	{
+		return ModLootTableList.HUMAN_LOOT;
 	}
 	
 	protected static class EntityAINearestHost extends EntityAINearestAttackableTarget<EntityPlayer>
@@ -73,11 +81,7 @@ public class EntityHuman extends EntityMob
 		{
 			if(player != null)
 			{
-				IPlayerHostCapability host = player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null);
-				if(host.isHost())
-				{
-					return true;
-				}
+				return player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null).isHost();
 			}
 			return false;
 		}
@@ -88,7 +92,6 @@ public class EntityHuman extends EntityMob
 			double targetDistance = this.getTargetDistance();
 			this.player = this.human.world.getNearestAttackablePlayer(this.human.posX, this.human.posY, this.human.posZ, targetDistance, targetDistance, (Function<EntityPlayer, Double>)null, new Predicate<EntityPlayer>()
 			{
-				
 				@Override
 				public boolean apply(EntityPlayer input)
 				{
@@ -101,7 +104,7 @@ public class EntityHuman extends EntityMob
 		@Override
 		public void startExecuting()
 		{
-			this.aggroTime = 5;
+			this.aggroTime = 2;
 		}
 		
 		@Override
@@ -120,7 +123,7 @@ public class EntityHuman extends EntityMob
 				{
 					return false;
 				}
-				else
+				else 
 				{
 					this.human.faceEntity(player, 10.0F, 10.0F);
 					return true;
@@ -128,7 +131,7 @@ public class EntityHuman extends EntityMob
 			}
 			else
 			{
-				if(this.targetEntity != null && ((EntityPlayer)this.targetEntity).isEntityAlive() && this.isPlayerHost(player))
+				if(this.targetEntity != null && ((EntityPlayer)this.targetEntity).isEntityAlive() && this.isPlayerHost(targetEntity))
 				{
 					return true;
 				}
@@ -141,9 +144,9 @@ public class EntityHuman extends EntityMob
 		{
 			if(this.player != null)
 			{
-				if(this.aggroTime <= 0)
+				if(--this.aggroTime <= 0)
 				{
-					this.targetEntity = this.player;
+					this.targetEntity = player;
 					this.player = null;
 					super.startExecuting();
 				}

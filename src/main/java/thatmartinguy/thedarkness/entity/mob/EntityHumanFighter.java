@@ -1,11 +1,21 @@
 package thatmartinguy.thedarkness.entity.mob;
 
+import javax.annotation.Nullable;
+
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
+import thatmartinguy.thedarkness.data.capability.IPlayerHostCapability;
+import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
+import thatmartinguy.thedarkness.item.ModItems;
 
 public class EntityHumanFighter extends EntityHuman
 {
@@ -22,14 +32,8 @@ public class EntityHumanFighter extends EntityHuman
 	@Override
 	protected void initEntityAI()
 	{
-		super.applyEntityAttributes();
-		this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
-	}
-	
-	@Override
-	protected void applyEntityAttributes()
-	{
-		super.applyEntityAttributes();
-		
+		super.initEntityAI();
+		this.tasks.addTask(1, new EntityAIAttackMelee(this, 1.0D, false));
+		this.targetTasks.addTask(1, new EntityAINearestHost(this));
 	}
 }

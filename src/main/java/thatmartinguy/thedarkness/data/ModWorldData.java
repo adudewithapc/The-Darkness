@@ -9,8 +9,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import thatmartinguy.thedarkness.TheDarkness;
-import thatmartinguy.thedarkness.network.PlayerHostMessage;
-import thatmartinguy.thedarkness.network.PlayerHostUUIDMessage;
 import thatmartinguy.thedarkness.network.ReliquaryMessage;
 import thatmartinguy.thedarkness.util.Reference;
 
@@ -19,7 +17,6 @@ public class ModWorldData extends WorldSavedData
 	private static final String IDENTIFIER = Reference.MOD_ID + "reliquary";
 
 	private boolean isReliquaryCrafted;
-	private String hostUUID;
 	
 	private World world;
 	
@@ -46,34 +43,16 @@ public class ModWorldData extends WorldSavedData
 		return isReliquaryCrafted;
 	}
 	
-	public void setHostUUID(String UUID)
-	{
-		this.hostUUID = UUID;
-		
-		if(!world.isRemote)
-		{
-			TheDarkness.NETWORK.sendToAll(new PlayerHostUUIDMessage(this.hostUUID));
-		}
-		this.markDirty();
-	}
-	
-	public String getHostUUID()
-	{
-		return this.hostUUID;
-	}
-	
 	@Override
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		this.isReliquaryCrafted = compound.getBoolean("isReliquaryCrafted");
-		this.hostUUID = compound.getString("hostUUID");
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
 		compound.setBoolean("isReliquaryCrafted", this.isReliquaryCrafted);
-		compound.setString("hostUUID", this.hostUUID);
 		return compound;
 	}
 	
@@ -115,7 +94,6 @@ public class ModWorldData extends WorldSavedData
 		{
 			final ModWorldData worldData = ModWorldData.get(player.getEntityWorld());
 			TheDarkness.NETWORK.sendTo(new ReliquaryMessage(worldData.isReliquaryCrafted), player);
-			TheDarkness.NETWORK.sendTo(new PlayerHostUUIDMessage(worldData.hostUUID), player);
 		}
 		
 		@SubscribeEvent

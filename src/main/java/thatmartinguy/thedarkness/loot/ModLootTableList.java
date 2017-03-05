@@ -8,6 +8,7 @@ import thatmartinguy.thedarkness.util.Reference;
 public class ModLootTableList
 {
 	public static final ResourceLocation LIVING_SHADOW_LOOT = register("entities/living_shadow_loot");
+	public static final ResourceLocation HUMAN_LOOT = register("entities/human_loot");
 	
 	private static ResourceLocation register(String id)
 	{
