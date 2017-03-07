@@ -1,6 +1,7 @@
 package thatmartinguy.thedarkness;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -35,6 +36,7 @@ import thatmartinguy.thedarkness.network.ReliquaryMessage;
 import thatmartinguy.thedarkness.potion.ModPotionEffects;
 import thatmartinguy.thedarkness.proxy.IProxy;
 import thatmartinguy.thedarkness.util.Reference;
+import thatmartinguy.thedarkness.util.ShadowRecipes;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS)
 
@@ -50,6 +52,8 @@ public class TheDarkness
 	
 	public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID);
 	
+	public static DamageSource equipShadowArmor;
+	
 	@EventHandler
 	public static void preInit(FMLPreInitializationEvent event)
 	{
@@ -57,6 +61,8 @@ public class TheDarkness
 		ModPotionEffects.init();
 		ModBlocks.init();
 		ModEntities.registerEntities();
+		
+		equipShadowArmor = new DamageSource("equiparmor");
 		
 		proxy.preInit();
 		
@@ -72,6 +78,7 @@ public class TheDarkness
 		ModShapedRecipe.init();
 		ModEntities.addSpawns();
 		ModAchievements.init();
+		ShadowRecipes.init();
 		
 		PlayerHostProvider.register();
 		

@@ -35,5 +35,6 @@ public class EntityHumanFighter extends EntityHuman
 		super.initEntityAI();
 		this.tasks.addTask(1, new EntityAIAttackMelee(this, 1.0D, false));
 		this.targetTasks.addTask(1, new EntityAINearestHost(this));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityLivingShadow.class, true));
 	}
 }

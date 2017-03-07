@@ -8,6 +8,10 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import thatmartinguy.thedarkness.block.ModBlocks;
+import thatmartinguy.thedarkness.entity.dummy.EntityLivingShadowSlave;
+import thatmartinguy.thedarkness.entity.dummy.EntityShadowCrafter;
+import thatmartinguy.thedarkness.entity.dummy.RenderLivingShadowSlave;
+import thatmartinguy.thedarkness.entity.dummy.RenderShadowCrafter;
 import thatmartinguy.thedarkness.entity.mob.EntityHuman;
 import thatmartinguy.thedarkness.entity.mob.EntityHumanArcher;
 import thatmartinguy.thedarkness.entity.mob.EntityHumanCivilian;
@@ -34,11 +38,16 @@ public class ModModelManager
 		registerItemModel(ModItems.itemReliquary);
 		registerItemModel(ModItems.itemDarklingSkin);
 		registerItemModel(ModItems.itemHumanHeart);
+		registerItemModel(ModItems.itemDiaryOne);
+		registerItemModel(ModItems.itemSpectralKnife);
 		
 		registerItemModel(ModItems.swordBrightstone);
 		registerItemModel(ModItems.swordVoidstone);
 		
-		registerItemModel(ModItems.itemDiaryOne);
+		registerItemModel(ModItems.itemShadowHead);
+		registerItemModel(ModItems.itemShadowChest);
+		registerItemModel(ModItems.itemShadowLegs);
+		registerItemModel(ModItems.itemShadowFeet);
 	}
 	
 	private static void registerItemModel(Item item)
@@ -63,6 +72,9 @@ public class ModModelManager
 		registerMobModel(EntityHumanCivilian.class, RenderHumanCivilian::new);
 		registerMobModel(EntityHumanFighter.class, RenderHumanFighter::new);
 		registerMobModel(EntityHumanArcher.class, RenderHumanArcher::new);
+		
+		registerMobModel(EntityLivingShadowSlave.class, RenderLivingShadowSlave::new);
+		registerMobModel(EntityShadowCrafter.class, RenderShadowCrafter::new);
 	}
 	
 	private static <T extends Entity> void registerMobModel(Class<T> entity, IRenderFactory<? super T> renderFactory)

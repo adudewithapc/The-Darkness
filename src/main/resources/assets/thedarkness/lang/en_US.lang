@@ -5,12 +5,18 @@ item.thedarkness:swordBrightstone.name=Brightstone Sword
 item.thedarkness:swordVoidstone.name=Voidstone Sword
 item.thedarkness:itemDiaryOne.name=Diary
 item.thedarkness:itemHumanHeart.name=Human Heart
+item.thedarkness:itemSpectralKnife.name=Spectral Knife
+item.thedarkness:itemShadowHead.name=Shadow's Head
+item.thedarkness:itemShadowChest.name=Shadow's Chest
+item.thedarkness:itemShadowLegs.name=Shadow's Legs
+item.thedarkness:itemShadowFeet.name=Shadow's Feet
 
 # Blocks
 tile.thedarkness:blockBrightstone.name=Brightstone
 
 # Entities
 entity.thedarkness:livingshadow.name=Living Shadow
+entity.thedarkness:shadowcrafter.name=Shadow Crafter
 entity.thedarkness:human.name=Human
 entity.thedarkness:humanciv.name=Human Civillian
 entity.thedarkness:humanfighter.name=Human Fighter
@@ -28,3 +34,7 @@ achievement.transform=This wasn't the plan!
 achievement.acquireDiary.desc=Read the diary of the Sun Warrior
 achievement.acquireBrightstoneSword.desc=Craft a Brighstone Sword
 achievement.transform.desc=Complete your transformation
+
+# Death messages
+death.attack.equiparmor=%1$s tried to embrace the darkness.
+death.attack.wieldsword=%1$s tried to wield the darkness.

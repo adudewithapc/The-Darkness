@@ -31,9 +31,8 @@ public class EntityLivingShadow extends EntityMob
 		this.setSize(1.0F, 1.4F);
 		this.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(ModItems.swordVoidstone));
 		this.setHeldItem(EnumHand.OFF_HAND, new ItemStack(ModItems.swordVoidstone));
-		//this.inventoryHandsDropChances[0] = 0;
-		//this.inventoryHandsDropChances[1] = 0;
-		//this.inventoryHandsDropChances[2] = 0;
+		this.inventoryHandsDropChances[0] = 0;
+		this.inventoryHandsDropChances[1] = 0;
 	}
 
 	
@@ -43,9 +42,10 @@ public class EntityLivingShadow extends EntityMob
 		clearTasks();
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, true));
-		this.tasks.addTask(3, new EntityAIWander(this, 1.5D));
-		this.tasks.addTask(4, new EntityAILookIdle(this));
+		this.tasks.addTask(4, new EntityAIWander(this, 1.5D));
+		this.tasks.addTask(5, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityLivingShadow.EntityAIFindPlayer(this));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityHuman.class, false, false));
 	}
 	
 	protected void clearTasks()
@@ -94,13 +94,6 @@ public class EntityLivingShadow extends EntityMob
 					return false;
 				}
 			}
-			else if(player.getHeldItemOffhand() != null)
-			{
-				if(player.getHeldItemOffhand().getItem() == ModItems.swordBrightstone)
-				{
-					return false;
-				}
-			}
 			else if(player.isCreative())
 			{
 				return false;
@@ -134,13 +127,6 @@ public class EntityLivingShadow extends EntityMob
 				if(player.getHeldItemMainhand() != null)
 				{
 					if(player.getHeldItemMainhand().getItem() == ModItems.swordBrightstone)
-					{
-						return true;
-					}
-				}
-				else if(player.getHeldItemOffhand() != null)
-				{
-					if(player.getHeldItemOffhand().getItem() == ModItems.swordBrightstone)
 					{
 						return true;
 					}

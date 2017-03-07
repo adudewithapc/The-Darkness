@@ -31,6 +31,7 @@ public class EntityHumanCivilian extends EntityHuman
 		super.initEntityAI();
 		this.targetTasks.taskEntries.clear();
 		this.tasks.addTask(1, new EntityAIAvoidHost(this, EntityPlayer.class, 12.0F, 0.6D, 0.6D));
+		this.tasks.addTask(1, new EntityAIAvoidEntity<>(this, EntityLivingShadow.class, 12.0F, 0.6D, 0.6D));
 	}
 	
 	static class EntityAIAvoidHost extends EntityAIAvoidEntity<EntityPlayer>

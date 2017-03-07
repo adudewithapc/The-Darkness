@@ -3,6 +3,7 @@ package thatmartinguy.thedarkness.entity.mob;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.ai.EntityAIAttackRanged;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityTippedArrow;
 import net.minecraft.init.Items;
@@ -30,6 +31,7 @@ public class EntityHumanArcher extends EntityHuman implements IRangedAttackMob
 		super.initEntityAI();
 		this.tasks.addTask(1, new EntityAIAttackRanged(this, 0.2, 30, 16.0F));
 		this.targetTasks.addTask(1, new EntityAINearestHost(this));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityLivingShadow.class, true, false));
 	}
 
 	@Override

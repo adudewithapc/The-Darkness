@@ -6,6 +6,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
+import thatmartinguy.thedarkness.data.ModWorldData;
 import thatmartinguy.thedarkness.data.capability.IPlayerHostCapability;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
 
@@ -30,6 +31,7 @@ public class CommandMakeHost extends CommandBase
 		{
 			IPlayerHostCapability host = sender.getCommandSenderEntity().getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null);
 			host.setHost(true);
+			
 			sender.sendMessage(new TextComponentString("You are now a host"));
 		}
 	}

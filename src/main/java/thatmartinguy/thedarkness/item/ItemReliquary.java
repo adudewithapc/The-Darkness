@@ -20,22 +20,14 @@ import thatmartinguy.thedarkness.util.Reference;
 
 public class ItemReliquary extends ItemFood
 {
-	private boolean isCounting;
-	
 	public ItemReliquary(String unlocalizedName, String registryName, int amount, boolean isWolfFood)
 	{
-		this(amount, isWolfFood);
+		super(amount, isWolfFood);
 		this.setAlwaysEdible();
 		this.setCreativeTab(TheDarkness.tabDarkness);
 		this.setUnlocalizedName(unlocalizedName);
 		this.setRegistryName(registryName);
-		this.isCounting = false;
 		this.setMaxStackSize(1);
-	}
-
-	public ItemReliquary(int amount, boolean isWolfFood)
-	{
-		super(amount, isWolfFood);
 	}
 	
 	@Override
@@ -50,7 +42,7 @@ public class ItemReliquary extends ItemFood
 		
 		if(worldIn.isRemote)
 		{
-			player.sendMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "" + ChatFormatting.ITALIC + "I consume you..."));
+			player.sendMessage(new TextComponentString(ChatFormatting.ITALIC + "I consume you..."));
 			worldIn.playSound(player.posX, player.posY, player.posZ, SoundEvents.BLOCK_PORTAL_TRIGGER, SoundCategory.MASTER, 1, 1, false);
 		}
 		if(!worldIn.isRemote)

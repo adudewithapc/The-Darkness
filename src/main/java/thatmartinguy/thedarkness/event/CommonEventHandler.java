@@ -15,13 +15,12 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import thatmartinguy.thedarkness.achievement.ModAchievements;
-import thatmartinguy.thedarkness.block.ModBlocks;
-import thatmartinguy.thedarkness.data.ModWorldData;
 import thatmartinguy.thedarkness.data.capability.IPlayerHostCapability;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
+import thatmartinguy.thedarkness.entity.dummy.EntityShadowCrafter;
 import thatmartinguy.thedarkness.entity.mob.EntityLivingShadow;
 import thatmartinguy.thedarkness.item.ModItems;
 import thatmartinguy.thedarkness.potion.ModPotionEffects;
@@ -89,30 +88,15 @@ public class CommonEventHandler
 					
 					if(!player.world.isRemote)
 					{
-						event.getEntity().playSound(SoundEvents.BLOCK_PORTAL_TRIGGER, 1, 1);
+						player.playSound(SoundEvents.BLOCK_PORTAL_TRIGGER, 1, 1);
 						player.sendMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "You are one with me!"));
 					}
-				}
-			}
-			if(player.getHeldItemOffhand() != null)
-			{
-				if(player.getHeldItemOffhand().getItem() == ModItems.swordBrightstone)
-				{
-					player.setHeldItem(EnumHand.OFF_HAND, new ItemStack(ModItems.swordVoidstone));
-					//Set time to night
-					player.world.setWorldTime(13048);
-					
-					IPlayerHostCapability host = player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null);
-					host.setHost(true);
-					
-					player.removePotionEffect(ModPotionEffects.effectReliquary);
-					
-					player.addStat(ModAchievements.transform);
-					
-					if(!player.world.isRemote)
+					for(int i = 0; i < player.world.playerEntities.size(); i++)
 					{
-						event.getEntity().playSound(SoundEvents.BLOCK_PORTAL_TRIGGER, 1, 1);
-						player.sendMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "You are one with me!"));
+						if(player.world.playerEntities.get(i) != player)
+						{
+							player.world.playerEntities.get(i).sendMessage(new TextComponentString(ChatFormatting.DARK_PURPLE + "A champion has come forth. Let him be an example for all who oppose me!"));
+						}
 					}
 				}
 			}
