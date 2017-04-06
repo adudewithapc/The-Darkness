@@ -31,12 +31,12 @@ import thatmartinguy.thedarkness.event.AchievementEventHandler;
 import thatmartinguy.thedarkness.event.CapabilityEventHandler;
 import thatmartinguy.thedarkness.event.CommonEventHandler;
 import thatmartinguy.thedarkness.item.ModItems;
+import thatmartinguy.thedarkness.network.DroppedByHostMessage;
 import thatmartinguy.thedarkness.network.PlayerHostMessage;
 import thatmartinguy.thedarkness.network.ReliquaryMessage;
 import thatmartinguy.thedarkness.potion.ModPotionEffects;
 import thatmartinguy.thedarkness.proxy.IProxy;
 import thatmartinguy.thedarkness.util.Reference;
-import thatmartinguy.thedarkness.util.ShadowRecipes;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS)
 
@@ -69,6 +69,7 @@ public class TheDarkness
 		int id = -1;
 		NETWORK.registerMessage(ReliquaryMessage.Handler.class, ReliquaryMessage.class, id++, Side.CLIENT);
 		NETWORK.registerMessage(PlayerHostMessage.Handler.class, PlayerHostMessage.class, id++, Side.CLIENT);
+		NETWORK.registerMessage(DroppedByHostMessage.Handler.class, DroppedByHostMessage.class, id++, Side.CLIENT);
 	}
 	
 	@EventHandler
@@ -78,7 +79,6 @@ public class TheDarkness
 		ModShapedRecipe.init();
 		ModEntities.addSpawns();
 		ModAchievements.init();
-		ShadowRecipes.init();
 		
 		PlayerHostProvider.register();
 		

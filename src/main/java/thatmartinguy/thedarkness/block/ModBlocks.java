@@ -9,11 +9,15 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ModBlocks
 {
 	public static BlockBase blockBrighstone;
+	public static BlockBase blockDarkLight;
+	
 	public static ItemBlock itemBlockBrightstone;
 	
 	public static void init()
 	{
 		blockBrighstone = new BlockBrightstone("blockBrightstone", "BlockBrightstone", Material.ROCK);
+		blockDarkLight = new BlockDarkLight("blockDarkLight", "BlockDarkLight", Material.FIRE);
+		
 		itemBlockBrightstone = new ItemBlock(blockBrighstone);
 		
 		registerBlocks();
@@ -23,6 +27,7 @@ public class ModBlocks
 	private static void registerBlocks()
 	{
 		registerBlock(blockBrighstone);
+		registerBlock(blockDarkLight);
 	}
 	
 	private static void registerItemBlocks()

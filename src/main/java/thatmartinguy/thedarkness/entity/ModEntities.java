@@ -14,7 +14,6 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import thatmartinguy.thedarkness.TheDarkness;
 import thatmartinguy.thedarkness.entity.dummy.EntityLivingShadowSlave;
-import thatmartinguy.thedarkness.entity.dummy.EntityShadowCrafter;
 import thatmartinguy.thedarkness.entity.mob.EntityHumanArcher;
 import thatmartinguy.thedarkness.entity.mob.EntityHumanCivilian;
 import thatmartinguy.thedarkness.entity.mob.EntityHumanFighter;
@@ -31,9 +30,6 @@ public class ModEntities
 		registerEntity(EntityHumanCivilian.class, "humanciv", entityID++, 80, 3, false);
 		registerEntity(EntityHumanFighter.class, "humanfighter", entityID++, 80, 3, false);
 		registerEntity(EntityHumanArcher.class, "humanarcher", entityID++, 80, 3, false);
-		
-		registerEntity(EntityLivingShadowSlave.class, "livingshadowslave", entityID++, 80, 3, false);
-		registerEntity(EntityShadowCrafter.class, "shadowcrafter", entityID++, 80, 3, false);
 		
 		registerEntity(EntitySpectralKnife.class, "spectralknife", entityID++, 80, 3, true);
 	}
