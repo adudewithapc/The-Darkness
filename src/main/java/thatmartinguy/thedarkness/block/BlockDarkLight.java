@@ -5,6 +5,7 @@ import java.util.Random;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,6 +28,8 @@ public class BlockDarkLight extends BlockBase
 	public BlockDarkLight(String unlocalizedName, String registryName, Material material)
 	{
 		super(unlocalizedName, registryName, material);
+		this.setCreativeTab(null);
+		this.setHardness(0);
 	}
 	
 	@Override
@@ -68,6 +71,9 @@ public class BlockDarkLight extends BlockBase
 					worldIn.spawnEntity(new EntityLightningBolt(worldIn, playersWithinRange.get(i).posX, playersWithinRange.get(i).posY, playersWithinRange.get(i).posZ, false));
 				}
 			}
+			
+			worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0f, 0.3f, true);
+			worldIn.setBlockToAir(pos);
 		}
 		else if(playersWithinRange.size() <= 0)
 		{
@@ -79,13 +85,19 @@ public class BlockDarkLight extends BlockBase
 	}
 	
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
 	{
 		return NULL_AABB;
 	}
 	
 	@Override
 	public boolean isOpaqueCube(IBlockState state)
+	{
+		return false;
+	}
+	
+	@Override
+	public boolean isFullyOpaque(IBlockState state)
 	{
 		return false;
 	}
@@ -124,5 +136,15 @@ public class BlockDarkLight extends BlockBase
 	public int tickRate(World worldIn)
 	{
 		return 1;
+	}
+	
+	@Override
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
+	{
+		/**if(side != EnumFacing.UP)
+			return true;
+		else
+			return false;**/
+		return true;
 	}
 }

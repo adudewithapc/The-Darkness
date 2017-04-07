@@ -43,7 +43,7 @@ public class ItemReliquary extends ItemFood
 		if(worldIn.isRemote)
 		{
 			player.sendMessage(new TextComponentString(ChatFormatting.ITALIC + "I consume you..."));
-			worldIn.playSound(player.posX, player.posY, player.posZ, SoundEvents.BLOCK_PORTAL_TRIGGER, SoundCategory.MASTER, 1, 1, false);
+			worldIn.playSound(player.posX, player.posY, player.posZ, SoundEvents.BLOCK_PORTAL_TRIGGER, SoundCategory.MASTER, 1, 0.3f, false);
 		}
 		if(!worldIn.isRemote)
 		{

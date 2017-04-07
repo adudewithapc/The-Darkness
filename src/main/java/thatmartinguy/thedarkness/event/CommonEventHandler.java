@@ -8,14 +8,18 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thatmartinguy.thedarkness.achievement.ModAchievements;
+import thatmartinguy.thedarkness.block.ModBlocks;
 import thatmartinguy.thedarkness.data.capability.IPlayerHostCapability;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
 import thatmartinguy.thedarkness.entity.mob.EntityLivingShadow;
@@ -97,6 +101,25 @@ public class CommonEventHandler
 					}
 				}
 			}
+		}
+	}
+	
+	//Extinguish dark light if the block below it is clicked
+	@SubscribeEvent
+	public void extinguishDarkLight(PlayerInteractEvent.LeftClickBlock event)
+	{
+		BlockPos darkLightPos = event.getPos().up();
+		
+		if(event.getWorld().getBlockState(darkLightPos).getBlock() == ModBlocks.blockDarkLight)
+		{
+			event.getWorld().playSound(darkLightPos.getX(), darkLightPos.getY(), darkLightPos.getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0f, 0.3f, true);
+			event.getWorld().setBlockToAir(darkLightPos);
+			
+			if(event.getEntityPlayer() != null && !event.getEntityPlayer().getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null).isHost() && !event.getWorld().isRemote)
+			{
+				event.getEntityPlayer().addPotionEffect(new PotionEffect(MobEffects.WITHER));
+			}
+			event.setCanceled(true);
 		}
 	}
 }

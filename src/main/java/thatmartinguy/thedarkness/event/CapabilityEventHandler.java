@@ -8,6 +8,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
@@ -15,8 +16,10 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thatmartinguy.thedarkness.block.ModBlocks;
@@ -102,10 +105,25 @@ public class CapabilityEventHandler
 	@SubscribeEvent
 	public void placeDarkLight(PlayerInteractEvent.RightClickBlock event)
 	{
-		if(event.getEntityPlayer().getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null).isHost() && event.getItemStack().getItem() == Items.FLINT_AND_STEEL)
+		if(event.getEntityPlayer().getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null).isHost() && event.getItemStack().getItem() == Items.FLINT_AND_STEEL && !event.getWorld().isRemote && event.getWorld().getBlockState(event.getPos()).isFullBlock())
 		{
-			event.getWorld().setBlockState(new BlockPos(event.getEntityPlayer().getLookVec()), ModBlocks.blockDarkLight.getDefaultState());
+			event.getWorld().setBlockState(new BlockPos(event.getPos().getX(), event.getPos().getY() + 1, event.getPos().getZ()), ModBlocks.blockDarkLight.getDefaultState());
 			event.setCanceled(true);
+		}
+	}
+	
+	//Heal the host whenever he takes damage from wither
+	@SubscribeEvent
+	public void healHostWithWither(LivingHurtEvent event)
+	{
+		if(event.getEntity() instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer) event.getEntity();
+			
+			if(event.getSource() == DamageSource.WITHER)
+			{
+				player.heal(event.getAmount() * 2);
+			}
 		}
 	}
 }
