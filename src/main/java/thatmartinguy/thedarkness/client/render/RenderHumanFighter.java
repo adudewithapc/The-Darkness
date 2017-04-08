@@ -1,15 +1,15 @@
-package thatmartinguy.thedarkness.entity.mob;
+package thatmartinguy.thedarkness.client.render;
 
+import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 
-public class RenderHumanArcher extends RenderHuman
+public class RenderHumanFighter extends RenderHuman
 {
-	public RenderHumanArcher(RenderManager renderManagerIn)
+	public RenderHumanFighter(RenderManager renderManagerIn)
 	{
-		super(renderManagerIn, true);
-		this.setTextureLocation("textures/entity/humanfemale.png");
+		super(renderManagerIn);
 		this.addLayer(new LayerBipedArmor(this));
 	}
 }

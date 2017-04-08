@@ -1,4 +1,4 @@
-package thatmartinguy.thedarkness.entity.mob;
+package thatmartinguy.thedarkness.client.render;
 
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.entity.RenderLiving;

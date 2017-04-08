@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import scala.Int;
 import thatmartinguy.thedarkness.item.ModItems;
 
 public class DarkLightCrafting
@@ -22,28 +23,39 @@ public class DarkLightCrafting
 	
 	private static void addDarkLightRecipe(ItemStack output, Item... inputs)
 	{
-		Item[] recipe = new Item[inputs.length];
-		
-		for(int i = 0; i < recipe.length; i++)
-		{
-			recipe[i] = inputs[i];
-		}
-		
-		darkLightIngredients.add(recipe);
+		darkLightIngredients.add(inputs);
 		darkLightOutputs.add(output);
 	}
 	
 	@Nullable
-	public static ItemStack getOutput(Item[] inputs)
+	public static ItemStack getOutput(ItemStack... inputs)
 	{
-		for(int i = 0; i < inputs.length; i++)
+		if(matches(inputs) != Int.MinValue())
 		{
-			if(darkLightIngredients.get(i) == inputs)
-			{
-				return darkLightOutputs.get(i);
-			}
+			return darkLightOutputs.get(matches(inputs));
 		}
 		
 		return null;
+	}
+	
+	private static int matches(ItemStack[] inputs)
+	{
+		int matchingItems = 0;
+		for(int i = 0; i < darkLightIngredients.size(); i++)
+		{
+			for(int j = 0; i < inputs.length; j++)
+			{
+				System.out.print(matchingItems);
+				if(darkLightIngredients.get(i)[i] == inputs[j].getItem())
+				{
+					matchingItems++;
+				}
+				if(matchingItems == darkLightIngredients.get(i).length)
+				{
+					return i;
+				}
+			}
+		}
+		return Int.MinValue();
 	}
 }

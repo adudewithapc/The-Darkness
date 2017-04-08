@@ -8,6 +8,11 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import thatmartinguy.thedarkness.block.ModBlocks;
+import thatmartinguy.thedarkness.client.render.RenderHuman;
+import thatmartinguy.thedarkness.client.render.RenderHumanArcher;
+import thatmartinguy.thedarkness.client.render.RenderHumanCivilian;
+import thatmartinguy.thedarkness.client.render.RenderHumanFighter;
+import thatmartinguy.thedarkness.client.render.RenderLivingShadow;
 import thatmartinguy.thedarkness.entity.dummy.EntityLivingShadowSlave;
 import thatmartinguy.thedarkness.entity.dummy.RenderLivingShadowSlave;
 import thatmartinguy.thedarkness.entity.mob.EntityHuman;
@@ -15,11 +20,6 @@ import thatmartinguy.thedarkness.entity.mob.EntityHumanArcher;
 import thatmartinguy.thedarkness.entity.mob.EntityHumanCivilian;
 import thatmartinguy.thedarkness.entity.mob.EntityHumanFighter;
 import thatmartinguy.thedarkness.entity.mob.EntityLivingShadow;
-import thatmartinguy.thedarkness.entity.mob.RenderHuman;
-import thatmartinguy.thedarkness.entity.mob.RenderHumanArcher;
-import thatmartinguy.thedarkness.entity.mob.RenderHumanCivilian;
-import thatmartinguy.thedarkness.entity.mob.RenderHumanFighter;
-import thatmartinguy.thedarkness.entity.mob.RenderLivingShadow;
 import thatmartinguy.thedarkness.item.ModItems;
 
 public class ModModelManager

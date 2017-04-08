@@ -1,9 +1,10 @@
-package thatmartinguy.thedarkness.entity.mob;
+package thatmartinguy.thedarkness.client.render;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import thatmartinguy.thedarkness.entity.mob.EntityLivingShadow;
 import thatmartinguy.thedarkness.util.Reference;
 
 public class RenderLivingShadow extends RenderBiped<EntityLivingShadow>

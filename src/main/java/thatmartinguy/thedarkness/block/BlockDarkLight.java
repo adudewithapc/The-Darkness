@@ -1,87 +1,47 @@
 package thatmartinguy.thedarkness.block;
 
-import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import thatmartinguy.thedarkness.data.capability.ItemDropHostProvider;
-import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
-import thatmartinguy.thedarkness.util.DarkLightCrafting;
+import thatmartinguy.thedarkness.tileentity.TileEntityDarkLight;
 
-public class BlockDarkLight extends BlockBase
+public class BlockDarkLight extends BlockBase implements ITileEntityProvider
 {
 	public BlockDarkLight(String unlocalizedName, String registryName, Material material)
 	{
 		super(unlocalizedName, registryName, material);
 		this.setCreativeTab(null);
-		this.setHardness(0);
+		this.isBlockContainer = true;
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta)
+	{
+		return new TileEntityDarkLight();
 	}
 	
 	@Override
-	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
 	{
-		EntityItem[] burningItems = new EntityItem[worldIn.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos)).size()];
-		Item[] consumedItems = new Item[burningItems.length];
-		
-		if(burningItems.length > 0)
-		{
-			for(int i = 0; i < burningItems.length; i++)
-			{
-				burningItems[i] = worldIn.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos)).get(i);
-				
-				if(!burningItems[i].getCapability(ItemDropHostProvider.ITEM_DROPPED_BY_HOST_CAPABILITY, null).isDroppedByHost())
-				{
-					burningItems[i].setDead();
-					worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0f, 1, true);
-					return;
-				}
-				
-				consumedItems[i] = burningItems[i].getEntityItem().getItem();
-			}
-		}
-		
-		ItemStack output = DarkLightCrafting.getOutput(consumedItems);
-		List<EntityPlayer> playersWithinRange = worldIn.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB((double)pos.getX() + 16, (double)pos.getY() + 16, (double)pos.getZ() + 16, (double)pos.getX() - 16, (double)pos.getY() - 16, (double)pos.getZ() - 16));
-		
-		if(playersWithinRange.size() > 0 && output != null)
-		{
-			for(int i = 0; i < playersWithinRange.size(); i++)
-			{
-				if(playersWithinRange.get(i).getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null).isHost())
-				{
-					worldIn.spawnEntity(new EntityItem(worldIn, playersWithinRange.get(i).posX, playersWithinRange.get(i).posY, playersWithinRange.get(i).posZ, output));
-				}
-				else
-				{
-					worldIn.spawnEntity(new EntityLightningBolt(worldIn, playersWithinRange.get(i).posX, playersWithinRange.get(i).posY, playersWithinRange.get(i).posZ, false));
-				}
-			}
-			
-			worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0f, 0.3f, true);
-			worldIn.setBlockToAir(pos);
-		}
-		else if(playersWithinRange.size() <= 0)
-		{
-			for(int i = 0; i < burningItems.length; i++)
-			{
-				burningItems[i].setDead();
-			}
-		}
+		super.breakBlock(worldIn, pos, state);
+		worldIn.removeTileEntity(pos);
+	}
+	
+	@Override
+	public boolean eventReceived(IBlockState state, World worldIn, BlockPos pos, int id, int param)
+	{
+		super.eventReceived(state, worldIn, pos, id, param);
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+		return tileEntity == null ? false : tileEntity.receiveClientEvent(id, param);
 	}
 	
 	@Override
@@ -130,12 +90,6 @@ public class BlockDarkLight extends BlockBase
 	public BlockRenderLayer getBlockLayer()
 	{
 		return BlockRenderLayer.CUTOUT;
-	}
-	
-	@Override
-	public int tickRate(World worldIn)
-	{
-		return 1;
 	}
 	
 	@Override

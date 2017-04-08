@@ -3,8 +3,11 @@ package thatmartinguy.thedarkness.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import thatmartinguy.thedarkness.tileentity.TileEntityDarkLight;
+import thatmartinguy.thedarkness.util.Reference;
 
 public class ModBlocks
 {
@@ -22,17 +25,23 @@ public class ModBlocks
 		
 		registerBlocks();
 		registerItemBlocks();
+		registerTileEntities();
 	}
 	
 	private static void registerBlocks()
 	{
 		registerBlock(blockBrighstone);
-		registerBlock(blockDarkLight);
+		//registerBlock(blockDarkLight);
 	}
 	
 	private static void registerItemBlocks()
 	{
 		registerItemBlock(itemBlockBrightstone, blockBrighstone.getRegistryName());
+	}
+	
+	private static void registerTileEntities()
+	{
+		//registerTileEntity(TileEntityDarkLight.class, "DarkLight");
 	}
 	
 	private static void registerItemBlock(ItemBlock itemBlock, ResourceLocation registryName)
@@ -43,5 +52,10 @@ public class ModBlocks
 	private static void registerBlock(Block block)
 	{
 		GameRegistry.register(block);
+	}
+	
+	private static void registerTileEntity(Class<? extends TileEntity> tileEntity, String id)
+	{
+		GameRegistry.registerTileEntity(tileEntity, Reference.MOD_ID + ":" + id);
 	}
 }

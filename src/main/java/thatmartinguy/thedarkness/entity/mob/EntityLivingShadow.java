@@ -107,6 +107,7 @@ public class EntityLivingShadow extends EntityMob
 	{
 		return ModLootTableList.LIVING_SHADOW_LOOT;
 	}
+	
 	//The AI for checking if the living shadow should attack the player
 	static class EntityAIFindPlayer extends EntityAINearestAttackableTarget<EntityPlayer>
 	{
@@ -192,6 +193,7 @@ public class EntityLivingShadow extends EntityMob
 		@Override
 		public void updateTask()
 		{
+			
 			if(this.player != null)
 			{
 				if(--this.aggroTime <= 0)

@@ -1,8 +1,9 @@
-package thatmartinguy.thedarkness.entity.mob;
+package thatmartinguy.thedarkness.client.render;
 
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import thatmartinguy.thedarkness.entity.mob.EntityHuman;
 import thatmartinguy.thedarkness.entity.model.ModelHuman;
 import thatmartinguy.thedarkness.util.Reference;
 

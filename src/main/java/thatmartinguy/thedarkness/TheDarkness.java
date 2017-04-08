@@ -31,7 +31,6 @@ import thatmartinguy.thedarkness.event.AchievementEventHandler;
 import thatmartinguy.thedarkness.event.CapabilityEventHandler;
 import thatmartinguy.thedarkness.event.CommonEventHandler;
 import thatmartinguy.thedarkness.item.ModItems;
-import thatmartinguy.thedarkness.network.DroppedByHostMessage;
 import thatmartinguy.thedarkness.network.PlayerHostMessage;
 import thatmartinguy.thedarkness.network.ReliquaryMessage;
 import thatmartinguy.thedarkness.potion.ModPotionEffects;
@@ -69,7 +68,6 @@ public class TheDarkness
 		int id = -1;
 		NETWORK.registerMessage(ReliquaryMessage.Handler.class, ReliquaryMessage.class, id++, Side.CLIENT);
 		NETWORK.registerMessage(PlayerHostMessage.Handler.class, PlayerHostMessage.class, id++, Side.CLIENT);
-		NETWORK.registerMessage(DroppedByHostMessage.Handler.class, DroppedByHostMessage.class, id++, Side.CLIENT);
 	}
 	
 	@EventHandler
@@ -78,7 +76,6 @@ public class TheDarkness
 		ModCrafting.init();
 		ModShapedRecipe.init();
 		ModEntities.addSpawns();
-		ModAchievements.init();
 		
 		PlayerHostProvider.register();
 		
@@ -94,6 +91,8 @@ public class TheDarkness
 	@EventHandler
 	public static void postInit(FMLPostInitializationEvent event)
 	{
+		ModAchievements.init();
+		
 		proxy.postInit();
 	}
 	
