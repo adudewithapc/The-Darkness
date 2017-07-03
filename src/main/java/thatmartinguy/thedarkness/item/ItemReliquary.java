@@ -83,6 +83,7 @@ public class ItemReliquary extends ItemBase
                 case 2:
                     world.setWorldTime(18000);
                     reduceUses(itemStack);
+                    createHole(world, player.getPosition());
                     if(world.isRemote)
                     {
                         world.playSound(player, new BlockPos(player), SoundEvents.BLOCK_PORTAL_TRIGGER, SoundCategory.PLAYERS, 0.5F, 0.2F);
@@ -93,7 +94,6 @@ public class ItemReliquary extends ItemBase
                         player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 200));
                         player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 100));
                         player.addPotionEffect(new PotionEffect(ModPotions.potionFading, 24000));
-                        createHole(world, player.getPosition());
                     }
                     break;
                 case 3:

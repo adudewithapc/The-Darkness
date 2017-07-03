@@ -6,7 +6,7 @@ item.thedarkness:itemreliquary.name=Reliquary
 #tile.thedarkness:tilename.name
 
 # Potions
-
+thedarkness:potionfading=Fading
 
 # Creative Tab
 itemGroup.thedarkness=The Darkness

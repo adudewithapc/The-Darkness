@@ -1,10 +1,18 @@
 package thatmartinguy.thedarkness.event;
 
+import ibxm.Player;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.Sound;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.world.World;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -12,6 +20,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
 import thatmartinguy.thedarkness.init.ModPotions;
 import thatmartinguy.thedarkness.util.Reference;
+
+import java.util.Random;
 
 @EventBusSubscriber
 public class CapabilityEventHandler
@@ -49,6 +59,21 @@ public class CapabilityEventHandler
                     player.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 19));
                     player.addPotionEffect(new PotionEffect(MobEffects.UNLUCK, 19));
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void playerTransforming(LivingUpdateEvent event)
+    {
+        if (event.getEntityLiving() instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+            if(player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null).isTransforming())
+            {
+                World world = player.getEntityWorld();
+                if(!world.isRemote)
+                    player.addPotionEffect(new PotionEffect(ModPotions.potionFading, 19));
             }
         }
     }

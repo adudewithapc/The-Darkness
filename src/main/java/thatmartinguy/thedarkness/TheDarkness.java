@@ -17,6 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import thatmartinguy.thedarkness.command.CommandDimension;
 import thatmartinguy.thedarkness.command.CommandTransforming;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
+import thatmartinguy.thedarkness.init.ModBlocks;
 import thatmartinguy.thedarkness.init.ModLootTables;
 import thatmartinguy.thedarkness.network.ReliquaryCraftedMessage;
 import thatmartinguy.thedarkness.proxy.IProxy;
@@ -40,6 +41,8 @@ public class TheDarkness
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+        ModBlocks.registerTileEntities();
+
         network = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID);
 
         int networkID = -1;
@@ -62,7 +65,7 @@ public class TheDarkness
     public static TheDarkness instance;
 
     @EventHandler
-    public void s(FMLServerStartingEvent event)
+    public void registerDebugCommands(FMLServerStartingEvent event)
     {
         event.registerServerCommand(new CommandDimension());
         event.registerServerCommand(new CommandTransforming());

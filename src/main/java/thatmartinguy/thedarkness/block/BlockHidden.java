@@ -84,4 +84,10 @@ public class BlockHidden extends BlockBase
             world.setBlockState(pos, state);
         }
     }
+
+    @Override
+    public boolean isOpaqueCube(IBlockState state)
+    {
+        return false;
+    }
 }
