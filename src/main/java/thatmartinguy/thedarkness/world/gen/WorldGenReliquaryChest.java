@@ -26,7 +26,7 @@ public class WorldGenReliquaryChest implements IWorldGenerator
             if (world.getTileEntity(chestPosition) instanceof TileEntityShulkerBox)
             {
                 TileEntityShulkerBox entityBox = (TileEntityShulkerBox) world.getTileEntity(chestPosition);
-                entityBox.setLootTable(ModLootTables.lootReliquary, 0);
+                entityBox.setLootTable(ModLootTables.lootReliquary, 1);
             }
         }
     }

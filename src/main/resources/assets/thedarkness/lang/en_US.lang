@@ -1,8 +1,12 @@
 # Items
-item.thedarkness:shadowskin.name=Shadow Skin
+item.thedarkness:itemshadowskin.name=Shadow Skin
+item.thedarkness:itemreliquary.name=Reliquary
 
 # Blocks
 #tile.thedarkness:tilename.name
+
+# Potions
+
 
 # Creative Tab
 itemGroup.thedarkness=The Darkness
