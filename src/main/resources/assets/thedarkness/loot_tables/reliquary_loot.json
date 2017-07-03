@@ -1,0 +1,13 @@
+{
+  "pools": [
+    {
+        "entries": [
+        {
+          "type": "item",
+          "name": "thedarkness:itemreliquary",
+          "weight": 100
+        }
+        ]
+    }
+  ]
+}

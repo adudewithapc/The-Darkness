@@ -2,20 +2,18 @@ package thatmartinguy.thedarkness.item;
 
 import net.minecraft.item.Item;
 import thatmartinguy.thedarkness.TheDarkness;
-import thatmartinguy.thedarkness.util.Reference;
 
 public class ItemBase extends Item
 {
-	public ItemBase(String unlocalizedName, String registryName)
-	{
-		this.setUnlocalizedName(unlocalizedName);
-		this.setRegistryName(registryName);
-		this.setCreativeTab(TheDarkness.tabDarkness);
-	}
-	
-	@Override
-	public Item setUnlocalizedName(String unlocalizedName)
-	{
-		return super.setUnlocalizedName(Reference.MOD_ID + ":" + unlocalizedName);
-	}
+    public ItemBase(String name)
+    {
+        this.setRegistryName(name);
+        this.setUnlocalizedName();
+        this.setCreativeTab(TheDarkness.TAB_DARKNESS);
+    }
+
+    public Item setUnlocalizedName()
+    {
+        return super.setUnlocalizedName(getRegistryName().toString());
+    }
 }

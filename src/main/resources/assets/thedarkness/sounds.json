@@ -1,7 +1,0 @@
-{
-    "drunk_reliquary": {
-        "category": "voice",
-        "subtitle": "thedarkness.subtitle.drunkReliquary",
-        "sounds": [ "thedarkness:drunk_reliquary" ]
-    }
-}

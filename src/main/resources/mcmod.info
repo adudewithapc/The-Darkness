@@ -2,13 +2,13 @@
 {
   "modid": "thedarkness",
   "name": "The Darkness",
-  "description": "The darkness",
+  "description": "A mod based on the comic book series The Darkness by Top Cow Studios.",
   "version": "0.0.1",
-  "mcversion": "1.11.2",
+  "mcversion": "1.12",
   "url": "",
   "updateUrl": "",
   "authorList": ["That_Martin_Guy"],
-  "credits": "Choonster and Alpvax for helping me with code",
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
