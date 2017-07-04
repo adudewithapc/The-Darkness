@@ -11,12 +11,14 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import thatmartinguy.thedarkness.block.BlockHidden;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
 import thatmartinguy.thedarkness.init.ModBlocks;
 import thatmartinguy.thedarkness.init.ModPotions;
@@ -125,7 +127,7 @@ public class ItemReliquary extends ItemBase
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
         ItemStack itemStack = playerIn.getHeldItem(handIn);
-        if(!playerIn.isCreative() && !playerIn.isPotionActive(ModPotions.potionFading))
+        if(!playerIn.isCreative() && !playerIn.isPotionActive(ModPotions.potionFading) && playerIn.dimension == 0)
         {
             playerIn.setActiveHand(handIn);
             return new ActionResult<>(EnumActionResult.SUCCESS, itemStack);

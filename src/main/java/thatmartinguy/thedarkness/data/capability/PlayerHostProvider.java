@@ -28,7 +28,7 @@ public class PlayerHostProvider implements ICapabilitySerializable<NBTBase>
             {
                 NBTTagCompound nbt = new NBTTagCompound();
                 nbt.setBoolean("Transforming", instance.isTransforming());
-                nbt.setBoolean("Hots", instance.isHost());
+                nbt.setBoolean("Host", instance.isHost());
                 return nbt;
             }
 
@@ -41,7 +41,6 @@ public class PlayerHostProvider implements ICapabilitySerializable<NBTBase>
             }
         }, PlayerHostCapability::new);
     }
-
 
     @Override
     public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing)

@@ -1,27 +1,30 @@
 package thatmartinguy.thedarkness.event;
 
-import ibxm.Player;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.Sound;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import thatmartinguy.thedarkness.data.capability.IPlayerHostCapability;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
 import thatmartinguy.thedarkness.init.ModPotions;
+import thatmartinguy.thedarkness.util.LogHelper;
 import thatmartinguy.thedarkness.util.Reference;
 
-import java.util.Random;
+import static net.minecraft.entity.player.EntityPlayer.SleepResult.OK;
 
 @EventBusSubscriber
 public class CapabilityEventHandler
@@ -38,42 +41,20 @@ public class CapabilityEventHandler
     }
 
     @SubscribeEvent
-    public static void handleFading(LivingUpdateEvent event)
+    public static void presistCababilities(PlayerEvent.Clone event)
     {
-        if (event.getEntityLiving() instanceof EntityPlayer)
+        if(event.isWasDeath())
         {
-            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            if(player.isPotionActive(ModPotions.potionFading) && !player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null).isTransforming() && !player.getEntityWorld().isRemote)
-            {
-                if(player.getEntityWorld().isDaytime())
-                {
-                    player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 19, 3));
-                    player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 19, 3));
-                    player.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 19, 3));
-                    player.addPotionEffect(new PotionEffect(MobEffects.UNLUCK, 19, 3));
-                }
-                else
-                {
-                    player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 19));
-                    player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 19));
-                    player.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 19));
-                    player.addPotionEffect(new PotionEffect(MobEffects.UNLUCK, 19));
-                }
-            }
-        }
-    }
+            IPlayerHostCapability oldCapability = event.getOriginal().getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null);
+            IPlayerHostCapability newCapability = event.getEntityPlayer().getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null);
 
-    @SubscribeEvent
-    public static void playerTransforming(LivingUpdateEvent event)
-    {
-        if (event.getEntityLiving() instanceof EntityPlayer)
-        {
-            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            if(player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null).isTransforming())
+            if(oldCapability.isHost())
             {
-                World world = player.getEntityWorld();
-                if(!world.isRemote)
-                    player.addPotionEffect(new PotionEffect(ModPotions.potionFading, 19));
+                newCapability.setHost(true);
+            }
+            if(oldCapability.isTransforming())
+            {
+                newCapability.setTransforming(true);
             }
         }
     }
