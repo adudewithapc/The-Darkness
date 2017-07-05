@@ -9,7 +9,6 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -26,7 +25,7 @@ import thatmartinguy.thedarkness.init.ModPotions;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemReliquary extends ItemBase
+public class ItemReliquary extends ItemNBTBase
 {
     public ItemReliquary(String name)
     {
@@ -37,7 +36,7 @@ public class ItemReliquary extends ItemBase
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
     {
-        tooltip.add(Integer.toString(getUses(stack)));
+        tooltip.add(Integer.toString(getNBTInt(stack, "Uses", 3)));
     }
 
     @Override
@@ -64,7 +63,7 @@ public class ItemReliquary extends ItemBase
         if(entityLiving instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) entityLiving;
-            switch (getUses(itemStack))
+            switch (getNBTInt(itemStack, "Uses", 3))
             {
                 case 1:
                     itemStack.shrink(1);
@@ -144,41 +143,9 @@ public class ItemReliquary extends ItemBase
         return 32;
     }
 
-    public NBTTagCompound getNBT(ItemStack itemStack)
-    {
-        NBTTagCompound compound;
-        if(itemStack.hasTagCompound())
-        {
-            compound = itemStack.getTagCompound();
-        }
-        else
-        {
-            compound = new NBTTagCompound();
-        }
-
-        if(!compound.hasKey("Uses"))
-        {
-            compound.setInteger("Uses", 3);
-        }
-        itemStack.setTagCompound(compound);
-        return compound;
-    }
-
-    public int getUses(ItemStack itemStack)
-    {
-        if(itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey("Uses"))
-        {
-            return itemStack.getTagCompound().getInteger("Uses");
-        }
-        else
-        {
-            return getNBT(itemStack).getInteger("Uses");
-        }
-    }
-
     public void reduceUses(ItemStack itemStack)
     {
-        getNBT(itemStack).setInteger("Uses", getUses(itemStack) - 1);
+        setNBTInt(itemStack, "Uses", getNBTInt(itemStack, "Uses", 3) - 1);
     }
 
     private void createHole(World world, BlockPos playerPos)

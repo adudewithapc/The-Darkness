@@ -2,9 +2,7 @@ package thatmartinguy.thedarkness.event;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -63,22 +61,32 @@ public class HostEventHandler
     @SubscribeEvent
     public static void hostDeathMessage(PlayerEvent.PlayerRespawnEvent event)
     {
-        IPlayerHostCapability capability = event.player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null);
+        if(!event.isEndConquered())
+        {
+            IPlayerHostCapability capability = event.player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null);
 
-        if(capability.isHost())
-        {
-            event.player.sendMessage(new TextComponentString(TextFormatting.DARK_GRAY + "You awake from a bad dream"));
-        }
-        if(capability.isTransforming() || capability.isHost())
-        {
-            for(EntityPlayer player : event.player.world.playerEntities)
+            if (capability.isHost())
             {
-                player.sendMessage(new TextComponentString(TextFormatting.GRAY + "A loud \"clang\" could be heard from the end"));
-                if(player.world.isRemote)
-                    player.world.playSound(player, player.getPosition(), SoundEvents.BLOCK_ANVIL_PLACE, SoundCategory.BLOCKS, 1.0f, 0.8f);
+                event.player.sendMessage(new TextComponentString(TextFormatting.DARK_GRAY + "You awake from a bad dream"));
             }
+            if (capability.isTransforming() || capability.isHost())
+            {
+                for(EntityPlayer player : event.player.world.playerEntities)
+                {
+                    if(event.player.world.getWorldTime() >= 13000 && event.player.world.getWorldTime() <= 23000)
+                    {
+                        player.sendMessage(new TextComponentString(TextFormatting.DARK_BLUE + "A chill wind blows as the moon is reborn"));
+                    }
+                    else
+                    {
+                        player.sendMessage(new TextComponentString(TextFormatting.DARK_BLUE + "The light darkens as the sun sets early"));
+                    }
+                    event.player.world.setWorldTime(13000);
+                }
+            }
+            capability.setHost(false);
+            capability.setTransforming(false);
         }
-        capability.setHost(false);
-        capability.setTransforming(false);
     }
+
 }
