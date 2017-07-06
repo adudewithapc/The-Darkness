@@ -57,10 +57,7 @@ public class EntityLivingShadow extends EntityMob
         {
             this.setDropItemsWhenDead(false);
             this.setDead();
-            for(EntityPlayer player : world.playerEntities)
-            {
-                player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null).setFollowed(false);
-            }
+            player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null).setFollowed(false);
         }
         this.setPosition(player.posX, player.posY, player.posZ - 2);
     }
