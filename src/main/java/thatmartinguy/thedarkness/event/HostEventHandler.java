@@ -103,7 +103,7 @@ public class HostEventHandler
                 if (!capability.isFollowed())
                 {
                     LogHelper.info("Attempted to spawn an entity at player " + player.getName());
-                    player.world.spawnEntity(new EntityLivingShadow(player.world).setPlayer(player));
+                    player.world.spawnEntity(new EntityLivingShadow(player.world, player));
                     capability.setFollowed(true);
                 }
             }

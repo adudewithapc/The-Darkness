@@ -20,15 +20,15 @@ public class EntityLivingShadow extends EntityMob
     private EntityPlayer player;
     private final AxisAlignedBB EMPTY_AABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 
+    public EntityLivingShadow(World world, EntityPlayer player)
+    {
+        this(world);
+        this.player = player;
+    }
+
     public EntityLivingShadow(World worldIn)
     {
         super(worldIn);
-    }
-
-    public EntityLivingShadow setPlayer(EntityPlayer player)
-    {
-        this.player = player;
-        return this;
     }
 
     @Override
