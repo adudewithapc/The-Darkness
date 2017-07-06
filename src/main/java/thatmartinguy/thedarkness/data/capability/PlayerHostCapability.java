@@ -1,9 +1,12 @@
 package thatmartinguy.thedarkness.data.capability;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 public class PlayerHostCapability implements IPlayerHostCapability
 {
     private boolean transforming;
     private boolean host;
+    private boolean followed;
 
     @Override
     public void setTransforming(boolean isTransforming)
@@ -29,5 +32,17 @@ public class PlayerHostCapability implements IPlayerHostCapability
     public boolean isHost()
     {
         return host;
+    }
+
+    @Override
+    public void setFollowed(boolean followed)
+    {
+        this.followed = followed;
+    }
+
+    @Override
+    public boolean isFollowed()
+    {
+        return followed;
     }
 }

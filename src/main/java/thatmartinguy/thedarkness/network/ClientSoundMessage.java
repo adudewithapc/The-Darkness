@@ -2,13 +2,12 @@ package thatmartinguy.thedarkness.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import thatmartinguy.thedarkness.TheDarkness;
 
 public class ClientSoundMessage implements IMessage
@@ -34,7 +33,7 @@ public class ClientSoundMessage implements IMessage
     @Override
     public void fromBytes(ByteBuf buf)
     {
-        sound = SoundEvent.REGISTRY.getObject(new ResourceLocation(ByteBufUtils.readUTF8String(buf)));
+        sound = ByteBufUtils.readRegistryEntry(buf, ForgeRegistries.SOUND_EVENTS);
         volume = buf.readFloat();
         pitch = buf.readFloat();
     }
@@ -42,7 +41,7 @@ public class ClientSoundMessage implements IMessage
     @Override
     public void toBytes(ByteBuf buf)
     {
-        ByteBufUtils.writeUTF8String(buf, sound.getSoundName().toString());
+        ByteBufUtils.writeRegistryEntry(buf, sound);
         buf.writeFloat(volume);
         buf.writeFloat(pitch);
     }

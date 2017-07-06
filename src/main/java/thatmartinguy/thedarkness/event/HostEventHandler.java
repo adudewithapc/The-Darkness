@@ -14,8 +14,10 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import thatmartinguy.thedarkness.TheDarkness;
 import thatmartinguy.thedarkness.data.capability.IPlayerHostCapability;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
+import thatmartinguy.thedarkness.entity.EntityLivingShadow;
 import thatmartinguy.thedarkness.init.ModPotions;
 import thatmartinguy.thedarkness.network.ClientSoundMessage;
+import thatmartinguy.thedarkness.util.LogHelper;
 
 @EventBusSubscriber
 public class HostEventHandler
@@ -88,4 +90,23 @@ public class HostEventHandler
         }
     }
 
+    @SubscribeEvent
+    public static void spawnLivingShadows(LivingEvent.LivingUpdateEvent event)
+    {
+        if(!event.getEntity().world.isDaytime() && event.getEntityLiving() instanceof EntityPlayer)
+        {
+            EntityPlayer potientialTranform = (EntityPlayer) event.getEntityLiving();
+            if(!potientialTranform.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null).isTransforming()) return;
+            for (EntityPlayer player : event.getEntity().world.playerEntities)
+            {
+                IPlayerHostCapability capability = player.getCapability(PlayerHostProvider.PLAYER_HOST_CAPABILITY, null);
+                if (!capability.isFollowed())
+                {
+                    LogHelper.info("Attempted to spawn an entity at player " + player.getName());
+                    player.world.spawnEntity(new EntityLivingShadow(player.world).setPlayer(player));
+                    capability.setFollowed(true);
+                }
+            }
+        }
+    }
 }

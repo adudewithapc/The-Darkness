@@ -7,4 +7,7 @@ public interface IPlayerHostCapability
 
     public void setHost(boolean isHost);
     public boolean isHost();
+
+    public void setFollowed(boolean followed);
+    public boolean isFollowed();
 }

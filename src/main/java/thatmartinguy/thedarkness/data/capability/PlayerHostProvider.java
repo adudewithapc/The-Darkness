@@ -29,6 +29,7 @@ public class PlayerHostProvider implements ICapabilitySerializable<NBTBase>
                 NBTTagCompound nbt = new NBTTagCompound();
                 nbt.setBoolean("Transforming", instance.isTransforming());
                 nbt.setBoolean("Host", instance.isHost());
+                nbt.setBoolean("Followed", instance.isFollowed());
                 return nbt;
             }
 
@@ -38,6 +39,7 @@ public class PlayerHostProvider implements ICapabilitySerializable<NBTBase>
                 NBTTagCompound compound = (NBTTagCompound) nbt;
                 instance.setTransforming(compound.getBoolean("Transforming"));
                 instance.setHost(compound.getBoolean("Host"));
+                instance.setFollowed(compound.getBoolean("Followed"));
             }
         }, PlayerHostCapability::new);
     }

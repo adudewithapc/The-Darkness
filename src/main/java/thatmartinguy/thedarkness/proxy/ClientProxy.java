@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import thatmartinguy.thedarkness.client.ModModelManager;
 
 public class ClientProxy implements IProxy
 {
@@ -13,7 +14,7 @@ public class ClientProxy implements IProxy
     @Override
     public void preInit()
     {
-
+        ModModelManager.registerAllModels();
     }
 
     @Override
@@ -55,6 +56,4 @@ public class ClientProxy implements IProxy
             return ctx.getServerHandler().player.mcServer;
         }
     }
-
-
 }

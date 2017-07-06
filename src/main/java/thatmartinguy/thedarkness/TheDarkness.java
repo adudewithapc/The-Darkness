@@ -13,11 +13,10 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
-import thatmartinguy.thedarkness.command.CommandDimension;
-import thatmartinguy.thedarkness.command.CommandHost;
-import thatmartinguy.thedarkness.command.CommandTransforming;
+import thatmartinguy.thedarkness.command.CommandDebug;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
 import thatmartinguy.thedarkness.init.ModBlocks;
+import thatmartinguy.thedarkness.init.ModEntities;
 import thatmartinguy.thedarkness.init.ModLootTables;
 import thatmartinguy.thedarkness.network.ClientSoundMessage;
 import thatmartinguy.thedarkness.proxy.IProxy;
@@ -54,6 +53,8 @@ public class TheDarkness
         PlayerHostProvider.register();
 
         ModLootTables.register();
+
+        ModEntities.addSpawns();
     }
 
     @SidedProxy(clientSide = Reference.CLIENT_PROXY_LOCATION, serverSide = Reference.SERVER_PROXY_LOCATION)
@@ -65,8 +66,6 @@ public class TheDarkness
     @EventHandler
     public void registerDebugCommands(FMLServerStartingEvent event)
     {
-        event.registerServerCommand(new CommandDimension());
-        event.registerServerCommand(new CommandTransforming());
-        event.registerServerCommand(new CommandHost());
+        event.registerServerCommand(new CommandDebug());
     }
 }
