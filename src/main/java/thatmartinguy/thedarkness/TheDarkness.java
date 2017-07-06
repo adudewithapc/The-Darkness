@@ -19,7 +19,7 @@ import thatmartinguy.thedarkness.command.CommandTransforming;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
 import thatmartinguy.thedarkness.init.ModBlocks;
 import thatmartinguy.thedarkness.init.ModLootTables;
-import thatmartinguy.thedarkness.network.PlayerTransformMessage;
+import thatmartinguy.thedarkness.network.ClientSoundMessage;
 import thatmartinguy.thedarkness.proxy.IProxy;
 import thatmartinguy.thedarkness.util.Reference;
 
@@ -45,7 +45,7 @@ public class TheDarkness
         network = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID);
 
         int networkID = -1;
-        network.registerMessage(PlayerTransformMessage.Handler.class, PlayerTransformMessage.class, networkID++, Side.CLIENT);
+        network.registerMessage(ClientSoundMessage.Handler.class, ClientSoundMessage.class, networkID++, Side.CLIENT);
     }
 
     @EventHandler

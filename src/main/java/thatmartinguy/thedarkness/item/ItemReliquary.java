@@ -47,8 +47,6 @@ public class ItemReliquary extends ItemNBTBase
             EntityPlayer player = (EntityPlayer) entityLiving;
             if(worldIn.isRemote)
                 worldIn.playSound(player, new BlockPos(player), SoundEvents.ENTITY_ENDERMEN_HURT, SoundCategory.PLAYERS, 0.5F, 0.2F);
-
-
             if(player instanceof EntityPlayerMP)
             {
                 CriteriaTriggers.CONSUME_ITEM.trigger((EntityPlayerMP) player, itemStack);

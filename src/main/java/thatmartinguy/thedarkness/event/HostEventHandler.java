@@ -2,6 +2,7 @@ package thatmartinguy.thedarkness.event;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -10,9 +11,11 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import thatmartinguy.thedarkness.TheDarkness;
 import thatmartinguy.thedarkness.data.capability.IPlayerHostCapability;
 import thatmartinguy.thedarkness.data.capability.PlayerHostProvider;
 import thatmartinguy.thedarkness.init.ModPotions;
+import thatmartinguy.thedarkness.network.ClientSoundMessage;
 
 @EventBusSubscriber
 public class HostEventHandler
@@ -73,16 +76,12 @@ public class HostEventHandler
             {
                 for(EntityPlayer player : event.player.world.playerEntities)
                 {
-                    if(event.player.world.getWorldTime() >= 13000 && event.player.world.getWorldTime() <= 23000)
-                    {
-                        player.sendMessage(new TextComponentString(TextFormatting.DARK_BLUE + "A chill wind blows as the moon is reborn"));
-                    }
-                    else
-                    {
-                        player.sendMessage(new TextComponentString(TextFormatting.DARK_BLUE + "The light darkens as the sun sets early"));
-                    }
-                    event.player.world.setWorldTime(13000);
+                    if(player == event.player)
+                        player.sendMessage(new TextComponentString(TextFormatting.GRAY + "You awake from a bad dream"));
+                    player.sendMessage(new TextComponentString(TextFormatting.GRAY + "A loud \"clang\" could be heard from the end"));
+                    TheDarkness.network.sendToAll(new ClientSoundMessage(SoundEvents.BLOCK_ANVIL_PLACE, 0.5f, 0.6f));
                 }
+                CommonEventHandler.shouldShrineExist = true;
             }
             capability.setHost(false);
             capability.setTransforming(false);

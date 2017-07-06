@@ -16,13 +16,13 @@ import java.util.Random;
 @EventBusSubscriber
 public class CommonEventHandler
 {
-    private static boolean firstShrineCreated;
+    public static boolean shouldShrineExist = true;
     @SubscribeEvent
     public static void createFirstShrine(PlayerEvent.PlayerChangedDimensionEvent event)
     {
         World world = event.player.world;
 
-        if(!firstShrineCreated && event.toDim == 1)
+        if(shouldShrineExist && event.toDim == 1)
         {
             Random random = new Random();
 
@@ -34,7 +34,7 @@ public class CommonEventHandler
                 TileEntityShulkerBox entityBox = (TileEntityShulkerBox) world.getTileEntity(boxPos);
                 entityBox.setLootTable(ModLootTables.lootReliquary, 1);
             }
-            firstShrineCreated = true;
+            shouldShrineExist = false;
         }
     }
 }

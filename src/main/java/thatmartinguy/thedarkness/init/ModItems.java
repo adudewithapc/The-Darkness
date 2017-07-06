@@ -4,13 +4,12 @@ import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import thatmartinguy.thedarkness.item.ItemBase;
-import thatmartinguy.thedarkness.item.ItemReliquary;
+import thatmartinguy.thedarkness.item.*;
 
 @EventBusSubscriber
 public class ModItems
 {
-    public static ItemBase itemReliquary;
+    public static ItemNBTBase itemReliquary;
     public static ItemBase itemShadowSkin;
 
     public static final Item[] ITEMS = {
